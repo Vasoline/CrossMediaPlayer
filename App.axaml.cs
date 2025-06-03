@@ -4,8 +4,10 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using CrossMediaPlayer.Services;
 using CrossMediaPlayer.ViewModels;
 using CrossMediaPlayer.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CrossMediaPlayer;
 
@@ -23,9 +25,17 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
+            
+            var services = new ServiceCollection();
+            
+            InitialiseViews(services);
+            InitialiseServices(services);
+
+            var serviceProvider = services.BuildServiceProvider();
+
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = serviceProvider.GetService<MainWindowViewModel>()
             };
         }
 
@@ -43,5 +53,19 @@ public partial class App : Application
         {
             BindingPlugins.DataValidators.Remove(plugin);
         }
+    }
+
+    private void InitialiseViews(ServiceCollection services)
+    {
+        services.AddTransient<BottomBarViewModel>();
+        services.AddTransient<ContentViewModel>();
+        services.AddTransient<MainWindowViewModel>();
+        services.AddTransient<SideBarViewModel>();
+        services.AddTransient<TopBarViewModel>();
+    }
+    
+    private void InitialiseServices(ServiceCollection services)
+    {
+        services.AddSingleton<IAppNavigationService, AppNavigationService>();
     }
 }
