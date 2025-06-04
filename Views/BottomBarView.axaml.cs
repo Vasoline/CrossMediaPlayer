@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace CrossMediaPlayer.Views;
 
-public partial class BottomBarView : Window
+public partial class BottomBarView : UserControl
 {
     public BottomBarView()
     {
