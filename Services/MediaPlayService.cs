@@ -26,7 +26,7 @@ public class MediaPlayService : IMediaPlayService
         _mediaPlayer.Volume = 30;
         
         string audioPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "song.flac");
-        var media = new Media(_libVlc, audioPath, FromType.FromPath);
+        var media = new Media(_libVlc, audioPath);
         _mediaPlayer.Play(media);
     }
 

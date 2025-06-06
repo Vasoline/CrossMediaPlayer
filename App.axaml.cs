@@ -72,5 +72,6 @@ public partial class App : Application
     {
         services.AddSingleton<IAppNavigationService, AppNavigationService>();
         services.AddSingleton<IMediaPlayService, MediaPlayService>();
+        services.AddSingleton<IDatabaseService, DatabaseService>();
     }
 }
