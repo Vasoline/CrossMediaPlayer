@@ -8,16 +8,54 @@
              x:DataType="vm:BottomBarViewModel"
              Background="White">
     
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button Margin="0,0,10,20">
-            Back
+    <UserControl.Styles>
+        <StyleInclude Source="/Styles/ControlsStyles.axaml"/>
+    </UserControl.Styles>
+    
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,15,0,0">
+        
+        <Canvas Width="160" Height="40">
+            <TextBlock Text="Normal" FontSize="11"
+                       Canvas.Left="0" 
+                       Canvas.Top="-8"/>
+            <TextBlock Text="Loop" FontSize="11"
+                       Canvas.Left="67" 
+                       Canvas.Top="-8"/>
+            <TextBlock Text="Random" FontSize="11"
+                       Canvas.Left="120" 
+                       Canvas.Top="-8"/>
+            <Slider Canvas.Left="1" 
+                    Canvas.Top="-8" 
+                    Width="160"
+                    Value="0"
+                    Minimum="0"
+                    Maximum="100"
+                    TickFrequency="50"
+                    IsSnapToTickEnabled="True"
+                    Ticks="0, 50, 100"/>
+        </Canvas>
+        
+        <!-- Back Button -->
+        <Button Width="42" Height="25" Margin="80,0,0,25">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Panel>
+                        <!-- Parallelogram pointing left -->
+                        <Polygon Points="10,0 42,0 32,25 0,25"
+                                 Fill="LightGray"
+                                 Stroke="Gray"
+                                 StrokeThickness="1"/>
+                    </Panel>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
         
+        <!-- Play Button -->
         <Button Width="60" Height="60" Background="LightGray" Command="{Binding PlayButton}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Panel>
-                        <Polygon Points="15,5 45,5 55,25 30,50 5,25"
+                        <Polygon Points="15,5 45,5 55,30 30,50 5,30"
                                  Fill="{TemplateBinding Background}"
                                  Stroke="Gray"
                                  StrokeThickness="1"/>
@@ -36,8 +74,30 @@
                   Margin="4,0,0,10"/>
         </Button>
         
-        <Button Margin="10,0,0,20">
-            Next
+        <!-- Next Button -->
+        <Button Width="42" Height="25" Margin="0,0,80,25">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Panel>
+                        <Polygon Points="0,0 32,0 42,25 10,25"
+                                 Fill="LightGray"
+                                 Stroke="Gray"
+                                 StrokeThickness="1"/>
+                    </Panel>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
+        
+        <!-- Volume Slider -->
+        <Canvas Width="160" Height="40">
+            <TextBlock Text="Volume" FontSize="11"
+                       Canvas.Left="-0" 
+                       Canvas.Top="-8"/>
+            <Slider Classes="customSlider"
+                    Canvas.Left="1" 
+                    Canvas.Top="-8" 
+                    Width="160"
+                    Value="80"/>
+        </Canvas>
     </StackPanel>
 </UserControl>
