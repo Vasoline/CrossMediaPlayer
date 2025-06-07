@@ -12,19 +12,36 @@
         <StyleInclude Source="/Styles/ControlsStyles.axaml"/>
     </UserControl.Styles>
     
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,15,0,0">
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+        <ProgressBar HorizontalAlignment="Stretch"
+                     Height="10"
+                     Value="35"
+                     Foreground="#A0E4FF">
+        </ProgressBar>
         
-        <Canvas Width="160" Height="40">
-            <TextBlock Text="Normal" FontSize="11"
-                       Canvas.Left="0" 
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <TextBlock FontSize="11" HorizontalAlignment="Left" Margin="5,1,0,0">00:00</TextBlock>
+            <TextBlock FontSize="11" HorizontalAlignment="Right" Margin="0,-15,5,0">00:00</TextBlock>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-10,0,0">
+        
+        <Canvas Width="160" Height="40" Margin="0,10,0,0">
+            <TextBlock Text="Play Mode" FontSize="11" FontWeight="Bold"
+                       Canvas.Left="52" 
                        Canvas.Top="-8"/>
-            <TextBlock Text="Loop" FontSize="11"
+            <TextBlock Text="Normal" FontSize="10"
+                       Canvas.Left="-16" 
+                       Canvas.Top="19"/>
+            <TextBlock Text="Loop" FontSize="10"
                        Canvas.Left="67" 
-                       Canvas.Top="-8"/>
-            <TextBlock Text="Random" FontSize="11"
-                       Canvas.Left="120" 
-                       Canvas.Top="-8"/>
-            <Slider Canvas.Left="1" 
+                       Canvas.Top="19"/>
+            <TextBlock Text="Random" FontSize="10"
+                       Canvas.Left="140" 
+                       Canvas.Top="19"/>
+            
+            <Slider Classes="customSlider" 
+                    Canvas.Left="1" 
                     Canvas.Top="-8" 
                     Width="160"
                     Value="0"
@@ -36,7 +53,7 @@
         </Canvas>
         
         <!-- Back Button -->
-        <Button Width="42" Height="25" Margin="80,0,0,25">
+        <Button Width="42" Height="25" Margin="80,8,0,25">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Panel>
@@ -51,7 +68,7 @@
         </Button>
         
         <!-- Play Button -->
-        <Button Width="60" Height="60" Background="LightGray" Command="{Binding PlayButton}">
+        <Button Width="60" Height="60" Background="LightGray" Margin="0,8,0,0" Command="{Binding PlayButton}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Panel>
@@ -75,7 +92,7 @@
         </Button>
         
         <!-- Next Button -->
-        <Button Width="42" Height="25" Margin="0,0,80,25">
+        <Button Width="42" Height="25" Margin="0,8,80,25">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Panel>
@@ -89,10 +106,17 @@
         </Button>
         
         <!-- Volume Slider -->
-        <Canvas Width="160" Height="40">
-            <TextBlock Text="Volume" FontSize="11"
-                       Canvas.Left="-0" 
+        <Canvas Width="160" Height="40" Margin="0,10,0,0">
+            <TextBlock Text="Volume" FontSize="11" FontWeight="Bold"
+                       Canvas.Left="60" 
                        Canvas.Top="-8"/>
+            <TextBlock Text="0%" FontSize="10"
+                       Canvas.Left="-3" 
+                       Canvas.Top="19"/>
+            <TextBlock Text="100%" FontSize="10"
+                       Canvas.Left="147" 
+                       Canvas.Top="19"/>
+            
             <Slider Classes="customSlider"
                     Canvas.Left="1" 
                     Canvas.Top="-8" 
@@ -100,4 +124,6 @@
                     Value="80"/>
         </Canvas>
     </StackPanel>
+    </StackPanel>
+    
 </UserControl>

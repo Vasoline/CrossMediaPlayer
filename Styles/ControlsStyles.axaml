@@ -6,13 +6,73 @@
         </Border>
     </Design.PreviewWith>
 
-    <!-- Custom volume/PlayMode Slider -->
+    <!-- Custom Slider -->
     <Style Selector="Slider.customSlider">
-        <Setter Property="Foreground" Value="Purple"/>
+        <Setter Property="Foreground" Value="#A0E4FF"/>
+        <Setter Property="Height" Value="100"/>
     </Style>
     
+    <!-- Slider Filled Colour -->
+    <Style Selector="Slider.customSlider:pointerover /template/ RepeatButton#PART_DecreaseButton,
+                     Slider.customSlider:pressed /template/ RepeatButton#PART_DecreaseButton">
+        <Setter Property="Background" Value="#A0E4FF"/>
+    </Style>
+    
+    <!-- Slider Unfilled Colour -->
+    <Style Selector="Slider.customSlider /template/ RepeatButton#PART_IncreaseButton,
+                     Slider.customSlider:pointerover /template/ RepeatButton#PART_IncreaseButton,
+                     Slider.customSlider:pressed /template/ RepeatButton#PART_IncreaseButton">
+        <Setter Property="Background" Value="LightGray"/>
+    </Style>
+    
+    <!-- Slider Squared Edges -->
+    <Style Selector="Slider.customSlider /template/ RepeatButton#PART_DecreaseButton /template/ Border#TrackBackground">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    
+    <!-- Slider Thickness (All States) -->
+    <Style Selector="Slider.customSlider:pointerover /template/ RepeatButton#PART_DecreaseButton /template/ Border#TrackBackground">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    
+    <Style Selector="Slider.customSlider:focus-within /template/ RepeatButton#PART_DecreaseButton /template/ Border#TrackBackground">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    
+    <Style Selector="Slider.customSlider:focus-within:pointerover /template/ RepeatButton#PART_DecreaseButton /template/ Border#TrackBackground">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    
+    <Style Selector="Slider.customSlider /template/ RepeatButton#PART_IncreaseButton /template/ Border#TrackBackground">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    
+    <Style Selector="Slider.customSlider:pointerover /template/ RepeatButton#PART_IncreaseButton /template/ Border#TrackBackground">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    
+    <Style Selector="Slider.customSlider:focus-within /template/ RepeatButton#PART_IncreaseButton /template/ Border#TrackBackground">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    
+    <Style Selector="Slider.customSlider:focus-within:pointerover /template/ RepeatButton#PART_IncreaseButton /template/ Border#TrackBackground">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="CornerRadius" Value="0,0,0,0"/>
+    </Style>
+    
+    <!-- Slider Drag Icon -->
     <Style Selector="Slider.customSlider /template/ Thumb">
-        <Setter Property="Width" Value="12"/>
-        <Setter Property="Height" Value="12"/>
+        <Setter Property="Width" Value="11"/>
+        <Setter Property="Height" Value="11"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="DarkSlateGray"/>
+        <Setter Property="BorderThickness" Value="3,3,3,3"/>
     </Style>
 </Styles>
