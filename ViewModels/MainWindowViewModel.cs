@@ -1,5 +1,4 @@
 ﻿using System;
-using CrossMediaPlayer.Services;
 using CrossMediaPlayer.Services.MediaPlayService;
 
 namespace CrossMediaPlayer.ViewModels;

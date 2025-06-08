@@ -3,7 +3,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
-using CrossMediaPlayer.Services;
 using CrossMediaPlayer.Services.AppNavigation;
 using CrossMediaPlayer.Services.DatabaseService;
 using CrossMediaPlayer.Services.MediaPlayService;

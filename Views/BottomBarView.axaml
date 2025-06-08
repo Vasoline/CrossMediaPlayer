@@ -121,7 +121,7 @@
                     Canvas.Left="1" 
                     Canvas.Top="-8" 
                     Width="160"
-                    Value="80"/>
+                    Value="{Binding Volume}"/>
         </Canvas>
     </StackPanel>
     </StackPanel>
