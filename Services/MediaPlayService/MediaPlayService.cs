@@ -1,6 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Threading.Tasks;
 using LibVLCSharp.Shared;
 
 namespace CrossMediaPlayer.Services.MediaPlayService;
@@ -14,20 +14,50 @@ public class MediaPlayService : IMediaPlayService
     {
         _mediaPlayer = new MediaPlayer(_libVlc);
     }
+    
+    public event EventHandler<MediaPlayerLengthChangedEventArgs> LengthChanged
+    {
+        add => _mediaPlayer.LengthChanged += value;
+        remove => _mediaPlayer.LengthChanged -= value;
+    }
+    
+    public event EventHandler<MediaPlayerTimeChangedEventArgs> TimeChanged
+    {
+        add => _mediaPlayer.TimeChanged += value;
+        remove => _mediaPlayer.TimeChanged -= value;
+    }
 
     public VLCState MediaState()
     {
         return _mediaPlayer.State;
     }
     
-    public void PlayMediaTest()
+    public long GetMediaLength()
+    {
+        return _mediaPlayer.Length;
+    }
+    
+    public async Task<string> PlayMediaTest()
     {
         string audioPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "song.flac");
         var media = new Media(_libVlc, audioPath);
+        
+        await media.Parse();
+        
+        var artistName = media.Meta(MetadataType.Artist);
+        var trackName = media.Meta(MetadataType.Title);
+        
         _mediaPlayer.Play(media);
+        
+        return $"Now Playing: {artistName} - {trackName}";
     }
     
     public void PauseMedia()
+    {
+        _mediaPlayer.Pause();
+    }
+    
+    public void ResumeMedia()
     {
         _mediaPlayer.Pause();
     }
