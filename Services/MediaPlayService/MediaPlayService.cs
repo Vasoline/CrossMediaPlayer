@@ -49,7 +49,12 @@ public class MediaPlayService : IMediaPlayService
         
         _mediaPlayer.Play(media);
         
-        return $"Now Playing: {artistName} - {trackName}";
+        return $"{artistName} - {trackName}";
+    }
+    
+    public void MediaSeekToPosition(TimeSpan seekTime)
+    {
+        _mediaPlayer.SeekTo(seekTime);
     }
     
     public void PauseMedia()

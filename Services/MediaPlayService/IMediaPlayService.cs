@@ -14,6 +14,8 @@ public interface IMediaPlayService : IDisposable
     public long GetMediaLength();
 
     public Task<string> PlayMediaTest();
+
+    public void MediaSeekToPosition(TimeSpan seekTime);
     
     public void PauseMedia();
     

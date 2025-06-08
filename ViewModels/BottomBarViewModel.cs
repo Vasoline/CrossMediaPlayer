@@ -32,6 +32,12 @@ public partial class BottomBarViewModel : ViewModelBase
     
     [ObservableProperty]
     private string _currentlyPlayingMedia = String.Empty;
+    
+    [ObservableProperty]
+    private double _mediaSeekPosition = 0;
+    
+    private double _currentMediaLengthInMilliseconds = 0;
+    private bool _isUpdatingFromMedia = false;
 
     [RelayCommand]
     public async Task PlayButton()
@@ -46,12 +52,25 @@ public partial class BottomBarViewModel : ViewModelBase
                 break;
             default:
                 CurrentlyPlayingMedia = await _mediaPlayService.PlayMediaTest();
+                MediaSeekPosition = 0;
                 break;
         }
     }
     
+    [RelayCommand]
+    public void MediaSeekToPosition(double seekPercentage)
+    {
+        var seekTimeInMs = (_currentMediaLengthInMilliseconds * seekPercentage) / 100.0;
+        
+        var seekTimeSpan = TimeSpan.FromMilliseconds(seekTimeInMs);
+        
+        _mediaPlayService.MediaSeekToPosition(seekTimeSpan);
+    }
+    
     private void OnLengthChanged(object? sender, MediaPlayerLengthChangedEventArgs newLength)
     {
+        _currentMediaLengthInMilliseconds = newLength.Length;
+        
         var timeSpan = TimeSpan.FromMilliseconds(newLength.Length);
         
         MediaLength = $"{timeSpan.Minutes}:{timeSpan.Seconds:D2}";
@@ -59,9 +78,15 @@ public partial class BottomBarViewModel : ViewModelBase
     
     private void OnTimeChanged(object? sender, MediaPlayerTimeChangedEventArgs newTime)
     {
+        var currentMediaTimeInMilliseconds = newTime.Time;
+        
         var timeSpan = TimeSpan.FromMilliseconds(newTime.Time);
         
         MediaPlayingTime = $"{timeSpan.Minutes}:{timeSpan.Seconds:D2}";
+        
+        _isUpdatingFromMedia = true;
+        MediaSeekPosition = (currentMediaTimeInMilliseconds / _currentMediaLengthInMilliseconds) * 100.0;
+        _isUpdatingFromMedia = false;
     }
     
     partial void OnVolumeChanged(double value)
@@ -69,5 +94,13 @@ public partial class BottomBarViewModel : ViewModelBase
         var volumeAsInt = (int)Math.Clamp(value, 0, 100);
         
         _mediaPlayService.ChangeVolume(volumeAsInt);
+    }
+    
+    partial void OnMediaSeekPositionChanged(double value)
+    {
+        if (!_isUpdatingFromMedia)
+        {
+            MediaSeekToPosition(value);
+        }
     }
 }

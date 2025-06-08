@@ -12,29 +12,34 @@
         <StyleInclude Source="/Styles/ControlsStyles.axaml"/>
     </UserControl.Styles>
     
-    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
-        <ProgressBar HorizontalAlignment="Stretch"
-                     Height="12"
-                     Value="35"
-                     Foreground="#A0E4FF">
-        </ProgressBar>
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <Slider Classes="seekSlider"
+                Margin="0,-15,0,0"
+                HorizontalAlignment="Stretch"
+                Height="35"
+                Foreground="#A0E4FF"
+                Value="{Binding MediaSeekPosition, Mode=TwoWay}">
+        </Slider>
         
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <TextBlock FontSize="10"
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,-17,0,15">
+            <TextBlock FontSize="11"
                        HorizontalAlignment="Left"
-                       Margin="5,-12,0,15"
+                       VerticalAlignment="Top"
+                       IsHitTestVisible="False"
                        Text="{Binding MediaPlayingTime}">--:--</TextBlock>
-            
-            <TextBlock FontSize="10"
+    
+            <TextBlock FontSize="11"
                        HorizontalAlignment="Right"
-                       Margin="0,-28,5,0"
+                       VerticalAlignment="Top"
+                       IsHitTestVisible="False"
                        Text="{Binding MediaLength}">--:--</TextBlock>
-            
-            <TextBlock FontSize="10"
+    
+            <TextBlock FontSize="11"
                        HorizontalAlignment="Center"
-                       Margin="0,-28,5,0"
+                       VerticalAlignment="Top"
+                       IsHitTestVisible="False"
                        Text="{Binding CurrentlyPlayingMedia}">now playing</TextBlock>
-        </StackPanel>
+        </Grid>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-10,0,0">
         
@@ -71,7 +76,7 @@
                     <Panel>
                         <!-- Parallelogram pointing left -->
                         <Polygon Points="10,0 42,0 32,25 0,25"
-                                 Fill="LightGray"
+                                 Fill="White"
                                  Stroke="Gray"
                                  StrokeThickness="1"/>
                     </Panel>
@@ -85,7 +90,7 @@
                 <ControlTemplate TargetType="Button">
                     <Panel>
                         <Polygon Points="15,5 45,5 55,30 30,50 5,30"
-                                 Fill="{TemplateBinding Background}"
+                                 Fill="White"
                                  Stroke="Gray"
                                  StrokeThickness="1"/>
                         <ContentPresenter x:Name="PartContentPresenter"
@@ -109,7 +114,7 @@
                 <ControlTemplate TargetType="Button">
                     <Panel>
                         <Polygon Points="0,0 32,0 42,25 10,25"
-                                 Fill="LightGray"
+                                 Fill="White"
                                  Stroke="Gray"
                                  StrokeThickness="1"/>
                     </Panel>
