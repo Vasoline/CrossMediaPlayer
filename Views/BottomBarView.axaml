@@ -23,12 +23,14 @@
         
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,-17,0,15">
             <TextBlock FontSize="11"
+                       Margin="5,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        IsHitTestVisible="False"
                        Text="{Binding MediaPlayingTime}">--:--</TextBlock>
     
             <TextBlock FontSize="11"
+                       Margin="0,0,5,0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Top"
                        IsHitTestVisible="False"
@@ -69,20 +71,33 @@
                     Ticks="0, 50, 100"/>
         </Canvas>
         
-        <!-- Back Button -->
-        <Button Width="42" Height="25" Margin="80,8,0,25">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Panel>
-                        <!-- Parallelogram pointing left -->
-                        <Polygon Points="10,0 42,0 32,25 0,25"
-                                 Fill="White"
-                                 Stroke="Gray"
-                                 StrokeThickness="1"/>
-                    </Panel>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+            <!-- Back Button -->
+            <Button Width="42" Height="25" Margin="80,8,0,25">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Panel>
+                            <!-- Parallelogram pointing left -->
+                            <Polygon Points="10,0 42,0 32,25 0,25"
+                                     Fill="#F6F6F6"
+                                     Stroke="Gray"
+                                     StrokeThickness="1"/>
+                            <ContentPresenter x:Name="PartContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Panel>
+                    </ControlTemplate>
+                </Button.Template>
+                <Panel Margin="5,2,0,0">
+                    <Rectangle Width="2" Height="10" Fill="Black" Margin="-14,0,0,0"/>
+                    <Path Data="M 10,0 L 10,12 L 2,6 Z" 
+                          Fill="Black" 
+                          Width="10" 
+                          Height="10"
+                          Stretch="Uniform"
+                          Margin="0,0,0,0"/>
+                </Panel>
+            </Button>
         
         <!-- Play Button -->
         <Button Width="60" Height="60" Background="LightGray" Margin="0,8,0,0" Command="{Binding PlayButton}">
@@ -90,7 +105,7 @@
                 <ControlTemplate TargetType="Button">
                     <Panel>
                         <Polygon Points="15,5 45,5 55,30 30,50 5,30"
-                                 Fill="White"
+                                 Fill="#F6F6F6"
                                  Stroke="Gray"
                                  StrokeThickness="1"/>
                         <ContentPresenter x:Name="PartContentPresenter"
@@ -108,19 +123,32 @@
                   Margin="4,0,0,10"/>
         </Button>
         
-        <!-- Next Button -->
-        <Button Width="42" Height="25" Margin="0,8,80,25">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Panel>
-                        <Polygon Points="0,0 32,0 42,25 10,25"
-                                 Fill="White"
-                                 Stroke="Gray"
-                                 StrokeThickness="1"/>
-                    </Panel>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+            <!-- Next Button -->
+            <Button Width="42" Height="25" Margin="0,8,80,25">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Panel>
+                            <Polygon Points="0,0 32,0 42,25 10,25"
+                                     Fill="#F6F6F6"
+                                     Stroke="Gray"
+                                     StrokeThickness="1"/>
+                            <ContentPresenter x:Name="PartContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Panel>
+                    </ControlTemplate>
+                </Button.Template>
+                <Panel Margin="0,2,0,0">
+                    <Path Data="M 0,0 L 8,6 L 0,12 Z" 
+                          Fill="Black" 
+                          Width="10" 
+                          Height="10"
+                          Stretch="Uniform"
+                          Margin="0,0,0,0"/>
+                    <Rectangle Width="2" Height="10" Fill="Black" Margin="6,0,0,0"/>
+                </Panel>
+            </Button>
         
         <!-- Volume Slider -->
         <Canvas Width="160" Height="40" Margin="0,10,0,0">
