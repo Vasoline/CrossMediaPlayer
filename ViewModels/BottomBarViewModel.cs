@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CrossMediaPlayer.Services;
+using CrossMediaPlayer.Services.MediaPlayService;
 
 namespace CrossMediaPlayer.ViewModels;
 
