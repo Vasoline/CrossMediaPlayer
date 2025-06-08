@@ -2,7 +2,7 @@
 using System.IO;
 using LibVLCSharp.Shared;
 
-namespace CrossMediaPlayer.Services;
+namespace CrossMediaPlayer.Services.MediaPlayService;
 
 public class MediaPlayService : IMediaPlayService
 {

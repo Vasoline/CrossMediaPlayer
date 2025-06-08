@@ -30,8 +30,7 @@
         <Border DockPanel.Dock="Bottom" 
                 Height="90" 
                 Background="#2B2B2B"
-                BorderBrush="#3E3E3E"
-                BorderThickness="0,1,0,0">
+                BorderBrush="#3E3E3E">
             <views:BottomBarView />
         </Border>
         

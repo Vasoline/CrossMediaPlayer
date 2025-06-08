@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrossMediaPlayer.Services;
+namespace CrossMediaPlayer.Services.MediaPlayService;
 
 public interface IMediaPlayService : IDisposable
 {
