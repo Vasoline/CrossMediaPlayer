@@ -1,4 +1,4 @@
-﻿namespace CrossMediaPlayer.Services.DatabaseService;
+﻿namespace CrossMediaPlayer.Services.Database;
 
 public class DatabaseService : IDatabaseService
 {
