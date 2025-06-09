@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LibVLCSharp.Shared;
 
@@ -11,9 +12,7 @@ public interface IMediaPlayService : IDisposable
     
     public VLCState MediaState();
 
-    public long GetMediaLength();
-
-    public Task<string> PlayMediaTest();
+    public Task<string> PlayMediaTest(string audioFilePath);
 
     public void MediaSeekToPosition(TimeSpan seekTime);
     
@@ -22,4 +21,6 @@ public interface IMediaPlayService : IDisposable
     public void ResumeMedia();
     
     public void ChangeVolume(int volume);
+
+    public void ArmPlaylist(Dictionary<int, string> playlist);
 }

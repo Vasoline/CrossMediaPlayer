@@ -36,9 +36,15 @@ public partial class BottomBarViewModel : ViewModelBase
     [ObservableProperty]
     private double _mediaSeekPosition = 0;
     
+    [ObservableProperty]
+    private string _playButtonIconPathData = PlayIconPatchData;
+    
+    private const string PlayIconPatchData = "M 0,0 L 0,10 L 10,5 Z";
+    private const string PauseIconPatchData = "M 0,0 L 4,0 L 4,10 L 0,10 Z M 6,0 L 10,0 L 10,10 L 6,10 Z";
+    
     private double _currentMediaLengthInMilliseconds = 0;
-    private bool _isUpdatingFromMedia = false;
-
+    private bool _mediaPlayIsUpdatingSeekPosition = false;
+    
     [RelayCommand]
     public async Task PlayButton()
     {
@@ -46,19 +52,21 @@ public partial class BottomBarViewModel : ViewModelBase
         {
             case VLCState.Playing:
                 _mediaPlayService.PauseMedia();
+                PlayButtonIconPathData = PlayIconPatchData;
                 break;
             case VLCState.Paused:
                 _mediaPlayService.ResumeMedia();
+                PlayButtonIconPathData = PauseIconPatchData;
                 break;
             default:
-                CurrentlyPlayingMedia = await _mediaPlayService.PlayMediaTest();
+                CurrentlyPlayingMedia = await _mediaPlayService.PlayMediaTest(String.Empty);
                 MediaSeekPosition = 0;
+                PlayButtonIconPathData = PauseIconPatchData;
                 break;
         }
     }
     
-    [RelayCommand]
-    public void MediaSeekToPosition(double seekPercentage)
+    private void MediaSeekToPosition(double seekPercentage)
     {
         var seekTimeInMs = (_currentMediaLengthInMilliseconds * seekPercentage) / 100.0;
         
@@ -84,9 +92,9 @@ public partial class BottomBarViewModel : ViewModelBase
         
         MediaPlayingTime = $"{timeSpan.Minutes}:{timeSpan.Seconds:D2}";
         
-        _isUpdatingFromMedia = true;
+        _mediaPlayIsUpdatingSeekPosition = true;
         MediaSeekPosition = (currentMediaTimeInMilliseconds / _currentMediaLengthInMilliseconds) * 100.0;
-        _isUpdatingFromMedia = false;
+        _mediaPlayIsUpdatingSeekPosition = false;
     }
     
     partial void OnVolumeChanged(double value)
@@ -98,7 +106,9 @@ public partial class BottomBarViewModel : ViewModelBase
     
     partial void OnMediaSeekPositionChanged(double value)
     {
-        if (!_isUpdatingFromMedia)
+        // We have to check this so we can distinguish when the user actually clicks on the seek bar
+        // only seek if the user changed the value.
+        if (!_mediaPlayIsUpdatingSeekPosition)
         {
             MediaSeekToPosition(value);
         }

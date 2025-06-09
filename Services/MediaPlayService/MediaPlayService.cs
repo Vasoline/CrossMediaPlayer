@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using LibVLCSharp.Shared;
@@ -9,6 +10,8 @@ public class MediaPlayService : IMediaPlayService
 {
     private readonly LibVLC _libVlc = new();
     private readonly MediaPlayer _mediaPlayer;
+
+    private Dictionary<int, string> _currentPlaylist = new();
     
     public MediaPlayService()
     {
@@ -32,13 +35,10 @@ public class MediaPlayService : IMediaPlayService
         return _mediaPlayer.State;
     }
     
-    public long GetMediaLength()
+    public async Task<string> PlayMediaTest(string audioFilePath)
     {
-        return _mediaPlayer.Length;
-    }
-    
-    public async Task<string> PlayMediaTest()
-    {
+        // Once the library is built we would check that a song is loaded before we attempt to play.
+        // Loading a song is done elsewhere, such as by double-clicking on the song in your library.
         string audioPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "song.flac");
         var media = new Media(_libVlc, audioPath);
         
@@ -70,6 +70,13 @@ public class MediaPlayService : IMediaPlayService
     public void ChangeVolume(int volume)
     {
         _mediaPlayer.Volume = volume;
+    }
+    
+    public void ArmPlaylist(Dictionary<int, string> playlist)
+    {
+        _currentPlaylist.Clear();
+        
+        _currentPlaylist = playlist;
     }
 
     public void Dispose()

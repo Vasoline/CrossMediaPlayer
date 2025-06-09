@@ -115,12 +115,12 @@
                     </Panel>
                 </ControlTemplate>
             </Button.Template>
-            <Path Data="M 0,0 L 0,10 L 10,5 Z" 
+            <Path Data="{Binding PlayButtonIconPathData}"
                   Fill="Black" 
                   Width="16" 
                   Height="16"
                   Stretch="Uniform"
-                  Margin="4,0,0,10"/>
+                  Margin="0,0,0,10"/>
         </Button>
         
             <!-- Next Button -->
