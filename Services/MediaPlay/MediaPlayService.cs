@@ -4,14 +4,12 @@ using System.IO;
 using System.Threading.Tasks;
 using LibVLCSharp.Shared;
 
-namespace CrossMediaPlayer.Services.MediaPlayService;
+namespace CrossMediaPlayer.Services.MediaPlay;
 
 public class MediaPlayService : IMediaPlayService
 {
     private readonly LibVLC _libVlc = new();
     private readonly MediaPlayer _mediaPlayer;
-
-    private Dictionary<int, string> _currentPlaylist = new();
     
     public MediaPlayService()
     {
@@ -28,6 +26,12 @@ public class MediaPlayService : IMediaPlayService
     {
         add => _mediaPlayer.TimeChanged += value;
         remove => _mediaPlayer.TimeChanged -= value;
+    }
+    
+    public event EventHandler<EventArgs> MediaEnded
+    {
+        add => _mediaPlayer.EndReached += value;
+        remove => _mediaPlayer.EndReached -= value;
     }
 
     public VLCState MediaState()
@@ -70,13 +74,6 @@ public class MediaPlayService : IMediaPlayService
     public void ChangeVolume(int volume)
     {
         _mediaPlayer.Volume = volume;
-    }
-    
-    public void ArmPlaylist(Dictionary<int, string> playlist)
-    {
-        _currentPlaylist.Clear();
-        
-        _currentPlaylist = playlist;
     }
 
     public void Dispose()

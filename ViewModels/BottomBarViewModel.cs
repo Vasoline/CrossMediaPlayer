@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CrossMediaPlayer.Services.MediaPlayService;
+using CrossMediaPlayer.Services.MediaPlay;
 using LibVLCSharp.Shared;
 
 namespace CrossMediaPlayer.ViewModels;
@@ -17,6 +17,7 @@ public partial class BottomBarViewModel : ViewModelBase
         
         _mediaPlayService.LengthChanged += OnLengthChanged;
         _mediaPlayService.TimeChanged += OnTimeChanged;
+        _mediaPlayService.MediaEnded += OnMediaEnded;
         
         OnVolumeChanged(Volume);
     }
@@ -43,7 +44,7 @@ public partial class BottomBarViewModel : ViewModelBase
     private const string PauseIconPatchData = "M 0,0 L 4,0 L 4,10 L 0,10 Z M 6,0 L 10,0 L 10,10 L 6,10 Z";
     
     private double _currentMediaLengthInMilliseconds = 0;
-    private bool _mediaPlayIsUpdatingSeekPosition = false;
+    private bool _automaticSeekUpdate = false;
     
     [RelayCommand]
     public async Task PlayButton()
@@ -92,9 +93,21 @@ public partial class BottomBarViewModel : ViewModelBase
         
         MediaPlayingTime = $"{timeSpan.Minutes}:{timeSpan.Seconds:D2}";
         
-        _mediaPlayIsUpdatingSeekPosition = true;
+        _automaticSeekUpdate = true;
         MediaSeekPosition = (currentMediaTimeInMilliseconds / _currentMediaLengthInMilliseconds) * 100.0;
-        _mediaPlayIsUpdatingSeekPosition = false;
+        _automaticSeekUpdate = false;
+    }
+
+    private void OnMediaEnded(object? sender, EventArgs eventArgs)
+    {
+        _automaticSeekUpdate = true;
+        
+        MediaPlayingTime = MediaLength = "--:--";
+        CurrentlyPlayingMedia = String.Empty;
+        MediaSeekPosition = 0;
+        PlayButtonIconPathData = PlayIconPatchData;
+        
+        _automaticSeekUpdate = false;
     }
     
     partial void OnVolumeChanged(double value)
@@ -108,9 +121,14 @@ public partial class BottomBarViewModel : ViewModelBase
     {
         // We have to check this so we can distinguish when the user actually clicks on the seek bar
         // only seek if the user changed the value.
-        if (!_mediaPlayIsUpdatingSeekPosition)
+        if (!_automaticSeekUpdate)
         {
-            MediaSeekToPosition(value);
+            var newTimeInMilliseconds = (value / 100.0) * _currentMediaLengthInMilliseconds;
+            var newTimeSpan = TimeSpan.FromMilliseconds(newTimeInMilliseconds);
+        
+            _mediaPlayService.MediaSeekToPosition(newTimeSpan);
+            
+            MediaPlayingTime = $"{newTimeSpan.Minutes}:{newTimeSpan.Seconds:D2}";
         }
     }
 }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LibVLCSharp.Shared;
 
-namespace CrossMediaPlayer.Services.MediaPlayService;
+namespace CrossMediaPlayer.Services.MediaPlay;
 
 public interface IMediaPlayService : IDisposable
 {
     public event EventHandler<MediaPlayerLengthChangedEventArgs> LengthChanged;
     public event EventHandler<MediaPlayerTimeChangedEventArgs> TimeChanged;
+    public event EventHandler<EventArgs> MediaEnded;
     
     public VLCState MediaState();
 
@@ -21,6 +22,4 @@ public interface IMediaPlayService : IDisposable
     public void ResumeMedia();
     
     public void ChangeVolume(int volume);
-
-    public void ArmPlaylist(Dictionary<int, string> playlist);
 }
