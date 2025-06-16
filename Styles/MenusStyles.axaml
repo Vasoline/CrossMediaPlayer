@@ -1,0 +1,38 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Primary Menu Buttons -->
+    <Style Selector="Button.sideMenuButton">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="BorderThickness" Value="0, 1 ,0 ,1"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="DarkGray"/>
+    </Style>
+    
+    <Style Selector="Button.sideMenuButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#DFF3FF"/>
+    </Style>
+    
+    <Style Selector="Button.sideMenuButtonSelected /template/ ContentPresenter">
+        <Setter Property="Background" Value="#DFF3FF"/>
+    </Style>
+    
+    <!-- Sub Menu Buttons -->
+    <Style Selector="Button.sideMenuSubButton">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="BorderThickness" Value="1, 1 ,0 ,1"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="DarkGray"/>
+    </Style>
+    
+    <Style Selector="Button.sideMenuSubButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#DFF3FF"/>
+    </Style>
+</Styles>

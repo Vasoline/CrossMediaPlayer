@@ -2,8 +2,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:CrossMediaPlayer.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CrossMediaPlayer.Views.SideBarView"
+             x:DataType="vm:SideBarViewModel"
              Background="White">
-    Side Bar
+    
+    <UserControl.Styles>
+        <StyleInclude Source="/Styles/MenusStyles.axaml"/>
+    </UserControl.Styles>
+    
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <Button Classes="sideMenuButton"
+                Classes.sideMenuButtonSelected="{Binding MediaLibraryButtonSelected}"
+                Command="{Binding MediaLibraryButtonClick}"
+                BorderThickness="0,0,0,1"
+                >Media Library
+        </Button>
+        
+        <Button Classes="sideMenuSubButton"
+                Classes.sideMenuButtonSelected="{Binding ArtistsButtonSelected}"
+                Command="{Binding ArtistsButtonClick}"
+                BorderThickness="5,0,0,1"
+                >Artists</Button>
+        
+        <Button Classes="sideMenuSubButton"
+                Classes.sideMenuButtonSelected="{Binding AlbumsButtonSelected}"
+                Command="{Binding AlbumsButtonClick}"
+                BorderThickness="5,0,0,1"
+                >Albums</Button>
+        
+        <Button Classes="sideMenuButton"
+                Classes.sideMenuButtonSelected="{Binding PlaylistsButtonSelected}"
+                Command="{Binding PlaylistsButtonClick}"
+                BorderThickness="0,0,0,1"
+                >Playlists</Button>
+        
+        <Button Classes="sideMenuButton"
+                Classes.sideMenuButtonSelected="{Binding OptionsButtonSelected}"
+                Command="{Binding OptionsButtonClick}"
+                BorderThickness="0,0,0,1"
+                >Options</Button>
+    </StackPanel>
 </UserControl>
