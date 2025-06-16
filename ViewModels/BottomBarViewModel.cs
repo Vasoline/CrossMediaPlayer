@@ -35,7 +35,10 @@ public partial class BottomBarViewModel : ViewModelBase
     private string _currentlyPlayingMedia = String.Empty;
     
     [ObservableProperty]
-    private double _mediaSeekPosition = 0;
+    private bool _enableSeeking;
+    
+    [ObservableProperty]
+    private double _mediaSeekPosition;
     
     [ObservableProperty]
     private string _playButtonIconPathData = PlayIconPatchData;
@@ -43,8 +46,8 @@ public partial class BottomBarViewModel : ViewModelBase
     private const string PlayIconPatchData = "M 0,0 L 0,10 L 10,5 Z";
     private const string PauseIconPatchData = "M 0,0 L 4,0 L 4,10 L 0,10 Z M 6,0 L 10,0 L 10,10 L 6,10 Z";
     
-    private double _currentMediaLengthInMilliseconds = 0;
-    private bool _automaticSeekUpdate = false;
+    private double _currentMediaLengthInMilliseconds;
+    private bool _automaticSeekUpdate;
     
     [RelayCommand]
     public async Task PlayButton()
@@ -63,17 +66,9 @@ public partial class BottomBarViewModel : ViewModelBase
                 CurrentlyPlayingMedia = await _mediaPlayService.PlayMediaTest(String.Empty);
                 MediaSeekPosition = 0;
                 PlayButtonIconPathData = PauseIconPatchData;
+                EnableSeeking = true;
                 break;
         }
-    }
-    
-    private void MediaSeekToPosition(double seekPercentage)
-    {
-        var seekTimeInMs = (_currentMediaLengthInMilliseconds * seekPercentage) / 100.0;
-        
-        var seekTimeSpan = TimeSpan.FromMilliseconds(seekTimeInMs);
-        
-        _mediaPlayService.MediaSeekToPosition(seekTimeSpan);
     }
     
     private void OnLengthChanged(object? sender, MediaPlayerLengthChangedEventArgs newLength)
@@ -106,6 +101,7 @@ public partial class BottomBarViewModel : ViewModelBase
         CurrentlyPlayingMedia = String.Empty;
         MediaSeekPosition = 0;
         PlayButtonIconPathData = PlayIconPatchData;
+        EnableSeeking = false;
         
         _automaticSeekUpdate = false;
     }
@@ -121,7 +117,7 @@ public partial class BottomBarViewModel : ViewModelBase
     {
         // We have to check this so we can distinguish when the user actually clicks on the seek bar
         // only seek if the user changed the value.
-        if (!_automaticSeekUpdate)
+        if (!_automaticSeekUpdate && EnableSeeking && _mediaPlayService.MediaState() != VLCState.Ended)
         {
             var newTimeInMilliseconds = (value / 100.0) * _currentMediaLengthInMilliseconds;
             var newTimeSpan = TimeSpan.FromMilliseconds(newTimeInMilliseconds);

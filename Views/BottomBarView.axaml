@@ -18,7 +18,8 @@
                 HorizontalAlignment="Stretch"
                 Height="35"
                 Foreground="#A0E4FF"
-                Value="{Binding MediaSeekPosition, Mode=TwoWay}">
+                Value="{Binding MediaSeekPosition, Mode=TwoWay}"
+                IsEnabled="{Binding EnableSeeking}">
         </Slider>
         
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,-17,0,15">

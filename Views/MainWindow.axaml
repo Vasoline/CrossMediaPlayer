@@ -20,8 +20,7 @@
 
     <DockPanel>
         <Border DockPanel.Dock="Top" 
-                Height="60" 
-                Background="#2B2B2B"
+                Height="35" 
                 BorderBrush="#3E3E3E"
                 BorderThickness="0,0,0,1">
             <views:TopBarView />
@@ -29,21 +28,23 @@
         
         <Border DockPanel.Dock="Bottom" 
                 Height="90" 
-                Background="#2B2B2B"
                 BorderBrush="#3E3E3E">
             <views:BottomBarView />
         </Border>
         
         <Border DockPanel.Dock="Left" 
                 Width="200" 
-                Background="#252525"
                 BorderBrush="#3E3E3E"
                 BorderThickness="0,0,1,0">
             <views:SideBarView />
         </Border>
         
-        <Border Background="#1E1E1E">
-            <views:ContentView />
+        <Border Background="#DFF3FF">
+            <TransitioningContentControl Content="{Binding CurrentlySelectedContentsPage}">
+                <TransitioningContentControl.PageTransition>
+                    <CrossFade Duration="0:00:00.3" />
+                </TransitioningContentControl.PageTransition>
+            </TransitioningContentControl>
         </Border>
     </DockPanel>
 
