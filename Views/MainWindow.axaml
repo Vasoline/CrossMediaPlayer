@@ -4,6 +4,7 @@
         xmlns:views="using:CrossMediaPlayer.Views"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pages="clr-namespace:CrossMediaPlayer.Views.Pages"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
         Width="1000" Height="600"
         MinWidth="800" MinHeight="500"
@@ -20,7 +21,7 @@
 
     <DockPanel>
         <Border DockPanel.Dock="Top" 
-                Height="60" 
+                Height="35" 
                 Background="#2B2B2B"
                 BorderBrush="#3E3E3E"
                 BorderThickness="0,0,0,1">
@@ -43,7 +44,11 @@
         </Border>
         
         <Border Background="#1E1E1E">
-            <views:ContentView />
+            <TransitioningContentControl Content="{Binding CurrentlySelectedContentsPage}">
+                <TransitioningContentControl.PageTransition>
+                    <CrossFade Duration="0:00:00.3" />
+                </TransitioningContentControl.PageTransition>
+            </TransitioningContentControl>
         </Border>
     </DockPanel>
 

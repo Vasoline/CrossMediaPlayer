@@ -31,4 +31,27 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
         <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.21" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\Pages\ArtistsPageView.axaml.cs">
+        <DependentUpon>ContentView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Pages\AlbumsPageView.axaml.cs">
+        <DependentUpon>AlbumsPageView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Pages\MediaLibraryPageView.axaml.cs">
+        <DependentUpon>MediaLibraryPageView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Pages\PlaylistsPageView.axaml.cs">
+        <DependentUpon>PlaylistsPageView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Pages\OptionsPageView.axaml.cs">
+        <DependentUpon>OptionsPageView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

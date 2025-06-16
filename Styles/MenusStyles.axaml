@@ -34,5 +34,6 @@
     
     <Style Selector="Button.sideMenuSubButton:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="#DFF3FF"/>
+        <Setter Property="BorderBrush" Value="DarkGray"/>
     </Style>
 </Styles>

@@ -7,6 +7,7 @@ using CrossMediaPlayer.Services.AppNavigation;
 using CrossMediaPlayer.Services.Database;
 using CrossMediaPlayer.Services.MediaPlay;
 using CrossMediaPlayer.ViewModels;
+using CrossMediaPlayer.ViewModels.Pages;
 using CrossMediaPlayer.Views;
 using LibVLCSharp.Shared;
 using Microsoft.Extensions.DependencyInjection;
@@ -64,10 +65,15 @@ public partial class App : Application
     private void InitialiseViews(ServiceCollection services)
     {
         services.AddTransient<BottomBarViewModel>();
-        services.AddTransient<ContentViewModel>();
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<SideBarViewModel>();
         services.AddTransient<TopBarViewModel>();
+        
+        services.AddTransient<MediaLibraryPageViewModel>();
+        services.AddTransient<ArtistsPageViewModel>();
+        services.AddTransient<AlbumsPageViewModel>();
+        services.AddTransient<PlaylistsPageViewModel>();
+        services.AddTransient<OptionsPageViewModel>();
     }
     
     private void InitialiseServices(ServiceCollection services)
