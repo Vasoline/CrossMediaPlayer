@@ -9,9 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Enums\" />
         <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\Translations.json" />
     </ItemGroup>
 
     <ItemGroup>

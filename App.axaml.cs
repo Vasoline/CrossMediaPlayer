@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using CrossMediaPlayer.Services.AppNavigation;
 using CrossMediaPlayer.Services.Database;
 using CrossMediaPlayer.Services.MediaPlay;
+using CrossMediaPlayer.Services.Translation;
 using CrossMediaPlayer.ViewModels;
 using CrossMediaPlayer.ViewModels.Pages;
 using CrossMediaPlayer.Views;
@@ -82,5 +83,6 @@ public partial class App : Application
         services.AddSingleton<IAppNavigationService, AppNavigationService>();
         services.AddSingleton<IMediaPlayService, MediaPlayService>();
         services.AddSingleton<IDatabaseService, DatabaseService>();
+        services.AddSingleton<ITranslationService, TranslationService>();
     }
 }
