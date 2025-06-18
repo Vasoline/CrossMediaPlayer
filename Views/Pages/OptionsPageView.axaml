@@ -5,5 +5,41 @@
               mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
               x:Class="CrossMediaPlayer.Views.Pages.OptionsPageView"
               Background="White">
-    Options Page
+    
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="30,10,0,0">
+        <Label FontSize="20" Margin="-20,0,0,40">Options</Label>
+        
+        <!-- Language Select -->
+        <Label FontSize="14" Margin="0,0,0,5">Language Select</Label>
+        <ComboBox FontSize="13" SelectedIndex="0" MinWidth="300">
+            <ComboBoxItem>English</ComboBoxItem>
+            <ComboBoxItem>Polish</ComboBoxItem>
+        </ComboBox>
+        
+        <!-- Minimize Behaviour -->
+        <Label FontSize="14" Margin="0,20,0,5">Minimize Behaviour</Label>
+        <ComboBox FontSize="13" SelectedIndex="0" MinWidth="300">
+            <ComboBoxItem>Minimize To Taskbar</ComboBoxItem>
+            <ComboBoxItem>Minimize To System Tray</ComboBoxItem>
+        </ComboBox>
+        
+        <!-- Default Startup Tab -->
+        <Label FontSize="14" Margin="0,20,0,5">Default Startup Tab</Label>
+        <ComboBox FontSize="13" SelectedIndex="1" MinWidth="300">
+            <ComboBoxItem>Media Library</ComboBoxItem>
+            <ComboBoxItem>Artists</ComboBoxItem>
+            <ComboBoxItem>Albums</ComboBoxItem>
+            <ComboBoxItem>Playlists</ComboBoxItem>
+            <ComboBoxItem>Options</ComboBoxItem>
+        </ComboBox>
+        
+        <!-- Default Startup Tab -->
+        <Label FontSize="14" Margin="0,20,0,5">Theme</Label>
+        <ComboBox FontSize="13" SelectedIndex="0" MinWidth="300">
+            <ComboBoxItem>Light Mode</ComboBoxItem>
+            <ComboBoxItem>Dark Mode</ComboBoxItem>
+        </ComboBox>
+        
+        <!-- Media Folders -->
+    </StackPanel>
 </UserControl>

@@ -73,6 +73,7 @@ public partial class App : Application
         services.AddTransient<ArtistsPageViewModel>();
         services.AddTransient<AlbumsPageViewModel>();
         services.AddTransient<PlaylistsPageViewModel>();
+        services.AddTransient<MediaFoldersPageViewModel>();
         services.AddTransient<OptionsPageViewModel>();
     }
     

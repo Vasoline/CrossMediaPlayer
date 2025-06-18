@@ -29,6 +29,9 @@ public partial class SideBarViewModel : ViewModelBase
     private bool _playlistsButtonSelected;
     
     [ObservableProperty]
+    private bool _mediaFoldersButtonSelected;
+    
+    [ObservableProperty]
     private bool _optionsButtonSelected;
 
 
@@ -73,6 +76,16 @@ public partial class SideBarViewModel : ViewModelBase
     }
     
     [RelayCommand]
+    public void MediaFoldersButtonClick()
+    {
+        ResetButtonsSelected();
+        
+        MediaFoldersButtonSelected = true;
+        
+        _appNavigationService.SetContentsPage(new MediaFoldersPageView());
+    }
+    
+    [RelayCommand]
     public void OptionsButtonClick()
     {
         ResetButtonsSelected();
@@ -88,6 +101,7 @@ public partial class SideBarViewModel : ViewModelBase
         ArtistsButtonSelected = false;
         AlbumsButtonSelected = false;
         PlaylistsButtonSelected = false;
+        MediaFoldersButtonSelected = false;
         OptionsButtonSelected = false;
     }
 }

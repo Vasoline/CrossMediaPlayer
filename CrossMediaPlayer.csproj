@@ -53,5 +53,9 @@
         <DependentUpon>OptionsPageView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Views\Pages\MediaFoldersPageView.axaml.cs">
+        <DependentUpon>MediaFoldersPageView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

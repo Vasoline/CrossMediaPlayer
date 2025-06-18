@@ -1,0 +1,58 @@
+﻿{
+  "BottomBar.VolumeLabel":
+  {
+    "en": "Volume",
+    "pl": "Głośność"
+  },
+  "BottomBar.PlayModeLabel":
+  {
+    "en": "Play Mode",
+    "pl": ""
+  },
+  "BottomBar.NormalToggle":
+  {
+    "en": "Normal",
+    "pl": ""
+  },
+  "BottomBar.LoopToggle":
+  {
+    "en": "Loop",
+    "pl": ""
+  },
+  "BottomBar.RandomToggle":
+  {
+    "en": "Random",
+    "pl": ""
+  },
+
+  "SideBar.MediaLibraryTab":
+  {
+    "en": "Media Library",
+    "pl": ""
+  },
+  "SideBar.ArtistsTab":
+  {
+    "en": "Artists",
+    "pl": ""
+  },
+  "SideBar.AlbumsTab":
+  {
+    "en": "Albums",
+    "pl": ""
+  },
+  "SideBar.PlaylistsTab":
+  {
+    "en": "Playlists",
+    "pl": ""
+  },
+  "SideBar.MediaFoldersTab":
+  {
+    "en": "Media Folders",
+    "pl": ""
+  },
+  "SideBar.OptionsTab":
+  {
+    "en": "Options",
+    "pl": ""
+  }
+}

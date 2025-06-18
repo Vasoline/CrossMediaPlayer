@@ -37,6 +37,12 @@
                 Command="{Binding PlaylistsButtonClick}"
                 BorderThickness="0,0,0,1"
                 >Playlists</Button>
+            
+            <Button Classes="sideMenuButton"
+                    Classes.sideMenuButtonSelected="{Binding MediaFoldersButtonSelected}"
+                    Command="{Binding MediaFoldersButtonClick}"
+                    BorderThickness="0,0,0,1"
+            >Media Folders</Button>
         
         <Button Classes="sideMenuButton"
                 Classes.sideMenuButtonSelected="{Binding OptionsButtonSelected}"

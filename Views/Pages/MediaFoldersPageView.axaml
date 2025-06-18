@@ -4,8 +4,8 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:vm="clr-namespace:CrossMediaPlayer.ViewModels.Pages"
               mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-              x:Class="CrossMediaPlayer.Views.Pages.ArtistsPageView"
-              x:DataType="vm:ArtistsPageViewModel"
+              x:Class="CrossMediaPlayer.Views.Pages.MediaFoldersPageView"
+              x:DataType="vm:MediaFoldersPageViewModel"
               Background="White">
-    Artists Page
+    Media Folders Page
 </UserControl>
