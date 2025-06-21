@@ -3,16 +3,22 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrossMediaPlayer.Services.MediaPlay;
+using CrossMediaPlayer.Services.Translation;
 using LibVLCSharp.Shared;
 
 namespace CrossMediaPlayer.ViewModels;
 
 public partial class BottomBarViewModel : ViewModelBase
 {
-    private readonly IMediaPlayService _mediaPlayService;
+    public ITranslationService TranslationService { get; }
     
-    public BottomBarViewModel(IMediaPlayService mediaPlayService)
+    private readonly IMediaPlayService _mediaPlayService;
+
+    public BottomBarViewModel(
+        ITranslationService translationService,
+        IMediaPlayService mediaPlayService)
     {
+        TranslationService = translationService;
         _mediaPlayService = mediaPlayService;
         
         _mediaPlayService.LengthChanged += OnLengthChanged;

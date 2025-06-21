@@ -33,7 +33,7 @@
         </Border>
         
         <Border DockPanel.Dock="Left" 
-                Width="200" 
+                Width="200"
                 BorderBrush="#3E3E3E"
                 BorderThickness="0,0,1,0">
             <views:SideBarView />

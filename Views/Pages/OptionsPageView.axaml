@@ -2,8 +2,49 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:vm="clr-namespace:CrossMediaPlayer.ViewModels.Pages"
               mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
               x:Class="CrossMediaPlayer.Views.Pages.OptionsPageView"
+              x:DataType="vm:OptionsPageViewModel"
               Background="White">
-    Options Page
+    
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="30,10,0,0">
+        <Label FontSize="20" Margin="-20,0,0,40"
+               Content="{Binding TranslationService[Options.OptionsTitle]}">
+        </Label>
+        
+        <!-- Language Select -->
+        <Label FontSize="14" Margin="0,0,0,5" 
+               Content="{Binding TranslationService[Options.LanguageSelectLabel]}">
+        </Label>
+        <ComboBox FontSize="13" MinWidth="300" SelectedIndex="{Binding SelectedLanguageOption}">
+            <ComboBoxItem Content="{Binding TranslationService[Options.LanguageSelectItemEnglish]}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding TranslationService[Options.LanguageSelectItemPolish]}"></ComboBoxItem>
+        </ComboBox>
+        
+        <!-- Minimize Behaviour -->
+        <Label FontSize="14" Margin="0,20,0,5" Content="{Binding TranslationService[Options.MinimizeBehaviourLabel]}"></Label>
+        <ComboBox FontSize="13" MinWidth="300" SelectedIndex="{Binding SelectedMinimizeBehaviourOption}">
+            <ComboBoxItem Content="{Binding TranslationService[Options.MinimizeBehaviourItemTaskBar]}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding TranslationService[Options.MinimizeBehaviourItemTray]}"></ComboBoxItem>
+        </ComboBox>
+        
+        <!-- Default Startup Tab -->
+        <Label FontSize="14" Margin="0,20,0,5" Content="{Binding TranslationService[Options.DefaultStartupTabLabel]}"></Label>
+        <ComboBox FontSize="13" MinWidth="300" SelectedIndex="{Binding SelectedDefaultTabOption}">
+            <ComboBoxItem Content="{Binding TranslationService[Options.DefaultStartupTabItemMediaLibrary]}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding TranslationService[Options.DefaultStartupTabItemArtists]}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding TranslationService[Options.DefaultStartupTabItemAlbums]}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding TranslationService[Options.DefaultStartupTabItemPlaylists]}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding TranslationService[Options.DefaultStartupTabItemMediaFolders]}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding TranslationService[Options.DefaultStartupTabItemOptions]}"></ComboBoxItem>
+        </ComboBox>
+        
+        <!-- Theme -->
+        <Label FontSize="14" Margin="0,20,0,5" Content="{Binding TranslationService[Options.ThemeLabel]}"></Label>
+        <ComboBox FontSize="13" MinWidth="300" SelectedIndex="{Binding SelectedThemeOption}">
+            <ComboBoxItem Content="{Binding TranslationService[Options.ThemeItemLight]}"></ComboBoxItem>
+            <ComboBoxItem Content="{Binding TranslationService[Options.ThemeItemDark]}"></ComboBoxItem>
+        </ComboBox>
+    </StackPanel>
 </UserControl>

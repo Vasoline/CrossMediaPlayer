@@ -9,9 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Enums\" />
         <Folder Include="Models\"/>
         <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\Translations.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -51,6 +54,10 @@
       </Compile>
       <Compile Update="Views\Pages\OptionsPageView.axaml.cs">
         <DependentUpon>OptionsPageView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\Pages\MediaFoldersPageView.axaml.cs">
+        <DependentUpon>MediaFoldersPageView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

@@ -1,0 +1,144 @@
+﻿{
+  "BottomBar.VolumeLabel":
+  {
+    "en": "Volume",
+    "pl": "Głośność"
+  },
+  "BottomBar.PlayModeLabel":
+  {
+    "en": "Play Mode",
+    "pl": "Tryb odtwarzania"
+  },
+  "BottomBar.NormalToggle":
+  {
+    "en": "Normal",
+    "pl": "Normalny"
+  },
+  "BottomBar.LoopToggle":
+  {
+    "en": "Loop",
+    "pl": "Pętla"
+  },
+  "BottomBar.RandomToggle":
+  {
+    "en": "Random",
+    "pl": "Losowo"
+  },
+
+  "SideBar.MediaLibraryTab":
+  {
+    "en": "Media Library",
+    "pl": "Biblioteka multimediów"
+  },
+  "SideBar.ArtistsTab":
+  {
+    "en": "Artists",
+    "pl": "Artyści"
+  },
+  "SideBar.AlbumsTab":
+  {
+    "en": "Albums",
+    "pl": "Albumy"
+  },
+  "SideBar.PlaylistsTab":
+  {
+    "en": "Playlists",
+    "pl": "Playlisty"
+  },
+  "SideBar.MediaFoldersTab":
+  {
+    "en": "Media Folders",
+    "pl": "Foldery multimediów"
+  },
+  "SideBar.OptionsTab":
+  {
+    "en": "Options",
+    "pl": "Opcje"
+  },
+
+  "Options.OptionsTitle":
+  {
+    "en": "Options",
+    "pl": "Opcje"
+  },
+  "Options.LanguageSelectLabel":
+  {
+    "en": "Language Select",
+    "pl": "Wybór języka"
+  },
+  "Options.LanguageSelectItemEnglish":
+  {
+    "en": "English",
+    "pl": "Angielski"
+  },
+  "Options.LanguageSelectItemPolish":
+  {
+    "en": "Polish",
+    "pl": "Polski"
+  },
+  "Options.MinimizeBehaviourLabel":
+  {
+    "en": "Minimize Behaviour",
+    "pl": "Zachowanie przy minimalizacji"
+  },
+  "Options.MinimizeBehaviourItemTaskBar":
+  {
+    "en": "Minimize To TaskBar",
+    "pl": "Minimalizuj do paska zadań"
+  },
+  "Options.MinimizeBehaviourItemTray":
+  {
+    "en": "Minimize To System Tray",
+    "pl": "Minimalizuj do zasobnika systemowego"
+  },
+  "Options.DefaultStartupTabLabel":
+  {
+    "en": "Default Startup Tab",
+    "pl": "Domyślna karta startowa"
+  },
+  "Options.DefaultStartupTabItemMediaLibrary":
+  {
+    "en": "Media Library",
+    "pl": "Biblioteka multimediów"
+  },
+  "Options.DefaultStartupTabItemArtists":
+  {
+    "en": "Artists",
+    "pl": "Artyści"
+  },
+  "Options.DefaultStartupTabItemAlbums":
+  {
+    "en": "Albums",
+    "pl": "Albumy"
+  },
+  "Options.DefaultStartupTabItemPlaylists":
+  {
+    "en": "Playlists",
+    "pl": "Playlisty"
+  },
+  "Options.DefaultStartupTabItemMediaFolders":
+  {
+    "en": "Media Folders",
+    "pl": "Foldery multimediów"
+  },
+  "Options.DefaultStartupTabItemOptions":
+  {
+    "en": "Options",
+    "pl": "Opcje"
+  },
+  "Options.ThemeLabel":
+  {
+    "en": "Theme",
+    "pl": "Motyw"
+  },
+  "Options.ThemeItemLight":
+  {
+    "en": "Light Mode",
+    "pl": "Tryb jasny"
+  },
+  "Options.ThemeItemDark":
+  {
+    "en": "Dark Mode",
+    "pl": "Tryb ciemny"
+  }
+}

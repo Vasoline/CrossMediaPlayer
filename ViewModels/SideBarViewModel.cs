@@ -1,16 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrossMediaPlayer.Services.AppNavigation;
+using CrossMediaPlayer.Services.Translation;
 using CrossMediaPlayer.Views.Pages;
 
 namespace CrossMediaPlayer.ViewModels;
 
 public partial class SideBarViewModel : ViewModelBase
 {
+    public ITranslationService TranslationService { get; }
+    
     private readonly IAppNavigationService _appNavigationService;
     
-    public SideBarViewModel(IAppNavigationService appNavigationService)
+    public SideBarViewModel(
+        ITranslationService  translationService,
+        IAppNavigationService appNavigationService)
     {
+        TranslationService = translationService;
         _appNavigationService = appNavigationService;
         
         _artistsButtonSelected = true;
@@ -27,6 +33,9 @@ public partial class SideBarViewModel : ViewModelBase
     
     [ObservableProperty]
     private bool _playlistsButtonSelected;
+    
+    [ObservableProperty]
+    private bool _mediaFoldersButtonSelected;
     
     [ObservableProperty]
     private bool _optionsButtonSelected;
@@ -73,6 +82,16 @@ public partial class SideBarViewModel : ViewModelBase
     }
     
     [RelayCommand]
+    public void MediaFoldersButtonClick()
+    {
+        ResetButtonsSelected();
+        
+        MediaFoldersButtonSelected = true;
+        
+        _appNavigationService.SetContentsPage(new MediaFoldersPageView());
+    }
+    
+    [RelayCommand]
     public void OptionsButtonClick()
     {
         ResetButtonsSelected();
@@ -88,6 +107,7 @@ public partial class SideBarViewModel : ViewModelBase
         ArtistsButtonSelected = false;
         AlbumsButtonSelected = false;
         PlaylistsButtonSelected = false;
+        MediaFoldersButtonSelected = false;
         OptionsButtonSelected = false;
     }
 }
