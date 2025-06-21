@@ -17,37 +17,42 @@
                 Classes.sideMenuButtonSelected="{Binding MediaLibraryButtonSelected}"
                 Command="{Binding MediaLibraryButtonClick}"
                 BorderThickness="0,0,0,1"
-                >Media Library
+                Content="{Binding TranslationService[SideBar.MediaLibraryTab]}">
         </Button>
         
         <Button Classes="sideMenuSubButton"
                 Classes.sideMenuButtonSelected="{Binding ArtistsButtonSelected}"
                 Command="{Binding ArtistsButtonClick}"
                 BorderThickness="5,0,0,1"
-                >Artists</Button>
+                Content="{Binding TranslationService[SideBar.ArtistsTab]}">
+        </Button>
         
         <Button Classes="sideMenuSubButton"
                 Classes.sideMenuButtonSelected="{Binding AlbumsButtonSelected}"
                 Command="{Binding AlbumsButtonClick}"
                 BorderThickness="5,0,0,1"
-                >Albums</Button>
+                Content="{Binding TranslationService[SideBar.AlbumsTab]}">
+        </Button>
         
         <Button Classes="sideMenuButton"
                 Classes.sideMenuButtonSelected="{Binding PlaylistsButtonSelected}"
                 Command="{Binding PlaylistsButtonClick}"
                 BorderThickness="0,0,0,1"
-                >Playlists</Button>
+                Content="{Binding TranslationService[SideBar.PlaylistsTab]}">
+        </Button>
             
-            <Button Classes="sideMenuButton"
-                    Classes.sideMenuButtonSelected="{Binding MediaFoldersButtonSelected}"
-                    Command="{Binding MediaFoldersButtonClick}"
-                    BorderThickness="0,0,0,1"
-            >Media Folders</Button>
+        <Button Classes="sideMenuButton"
+                Classes.sideMenuButtonSelected="{Binding MediaFoldersButtonSelected}"
+                Command="{Binding MediaFoldersButtonClick}"
+                BorderThickness="0,0,0,1"
+                Content="{Binding TranslationService[SideBar.MediaFoldersTab]}">
+        </Button>
         
         <Button Classes="sideMenuButton"
                 Classes.sideMenuButtonSelected="{Binding OptionsButtonSelected}"
                 Command="{Binding OptionsButtonClick}"
                 BorderThickness="0,0,0,1"
-                >Options</Button>
+                Content="{Binding TranslationService[SideBar.OptionsTab]}">
+        </Button>
     </StackPanel>
 </UserControl>

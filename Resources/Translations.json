@@ -56,82 +56,87 @@
     "pl": "Opcje"
   },
 
-  "SideBar.OptionsLanguageSelectLabel":
-  {
-    "en": "Language Select",
-    "pl": "Wybór języka"
-  },
-  "SideBar.OptionsLanguageSelectItemEnglish":
-  {
-    "en": "English",
-    "pl": "Angielski"
-  },
-  "SideBar.OptionsLanguageSelectItemPolish":
-  {
-    "en": "Polish",
-    "pl": "Polski"
-  },
-  "SideBar.OptionsMinimizeBehaviourLabel":
-  {
-    "en": "Minimize Behaviour",
-    "pl": "Zachowanie przy minimalizacji"
-  },
-  "SideBar.OptionsMinimizeBehaviourItemTaskBar":
-  {
-    "en": "Minimize To TaskBar",
-    "pl": "Minimalizuj do paska zadań"
-  },
-  "SideBar.OptionsMinimizeBehaviourItemTray":
-  {
-    "en": "Minimize To System Tray",
-    "pl": "Minimalizuj do zasobnika systemowego"
-  },
-  "SideBar.OptionsDefaultStartupTabLabel":
-  {
-    "en": "Default Startup Tab",
-    "pl": "Domyślna karta startowa"
-  },
-  "SideBar.OptionsDefaultStartupTabItemMediaLibrary":
-  {
-    "en": "Media Library",
-    "pl": "Biblioteka multimediów"
-  },
-  "SideBar.OptionsDefaultStartupTabItemArtists":
-  {
-    "en": "Artists",
-    "pl": "Artyści"
-  },
-  "SideBar.OptionsDefaultStartupTabItemAlbums":
-  {
-    "en": "Albums",
-    "pl": "Albumy"
-  },
-  "SideBar.OptionsDefaultStartupTabItemPlaylists":
-  {
-    "en": "Playlists",
-    "pl": "Playlisty"
-  },
-  "SideBar.OptionsDefaultStartupTabItemMediaFolders":
-  {
-    "en": "Media Folders",
-    "pl": "Foldery multimediów"
-  },
-  "SideBar.OptionsDefaultStartupTabItemOptions":
+  "Options.OptionsTitle":
   {
     "en": "Options",
     "pl": "Opcje"
   },
-  "SideBar.OptionsThemeLabel":
+  "Options.LanguageSelectLabel":
+  {
+    "en": "Language Select",
+    "pl": "Wybór języka"
+  },
+  "Options.LanguageSelectItemEnglish":
+  {
+    "en": "English",
+    "pl": "Angielski"
+  },
+  "Options.LanguageSelectItemPolish":
+  {
+    "en": "Polish",
+    "pl": "Polski"
+  },
+  "Options.MinimizeBehaviourLabel":
+  {
+    "en": "Minimize Behaviour",
+    "pl": "Zachowanie przy minimalizacji"
+  },
+  "Options.MinimizeBehaviourItemTaskBar":
+  {
+    "en": "Minimize To TaskBar",
+    "pl": "Minimalizuj do paska zadań"
+  },
+  "Options.MinimizeBehaviourItemTray":
+  {
+    "en": "Minimize To System Tray",
+    "pl": "Minimalizuj do zasobnika systemowego"
+  },
+  "Options.DefaultStartupTabLabel":
+  {
+    "en": "Default Startup Tab",
+    "pl": "Domyślna karta startowa"
+  },
+  "Options.DefaultStartupTabItemMediaLibrary":
+  {
+    "en": "Media Library",
+    "pl": "Biblioteka multimediów"
+  },
+  "Options.DefaultStartupTabItemArtists":
+  {
+    "en": "Artists",
+    "pl": "Artyści"
+  },
+  "Options.DefaultStartupTabItemAlbums":
+  {
+    "en": "Albums",
+    "pl": "Albumy"
+  },
+  "Options.DefaultStartupTabItemPlaylists":
+  {
+    "en": "Playlists",
+    "pl": "Playlisty"
+  },
+  "Options.DefaultStartupTabItemMediaFolders":
+  {
+    "en": "Media Folders",
+    "pl": "Foldery multimediów"
+  },
+  "Options.DefaultStartupTabItemOptions":
+  {
+    "en": "Options",
+    "pl": "Opcje"
+  },
+  "Options.ThemeLabel":
   {
     "en": "Theme",
     "pl": "Motyw"
   },
-  "SideBar.OptionsThemeItemLight":
+  "Options.ThemeItemLight":
   {
     "en": "Light Mode",
     "pl": "Tryb jasny"
   },
-  "SideBar.OptionsThemeItemDark":
+  "Options.ThemeItemDark":
   {
     "en": "Dark Mode",
     "pl": "Tryb ciemny"

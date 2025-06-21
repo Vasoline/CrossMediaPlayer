@@ -1,16 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrossMediaPlayer.Services.AppNavigation;
+using CrossMediaPlayer.Services.Translation;
 using CrossMediaPlayer.Views.Pages;
 
 namespace CrossMediaPlayer.ViewModels;
 
 public partial class SideBarViewModel : ViewModelBase
 {
+    public ITranslationService TranslationService { get; }
+    
     private readonly IAppNavigationService _appNavigationService;
     
-    public SideBarViewModel(IAppNavigationService appNavigationService)
+    public SideBarViewModel(
+        ITranslationService  translationService,
+        IAppNavigationService appNavigationService)
     {
+        TranslationService = translationService;
         _appNavigationService = appNavigationService;
         
         _artistsButtonSelected = true;
