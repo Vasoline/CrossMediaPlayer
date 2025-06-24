@@ -1,4 +1,6 @@
-﻿namespace CrossMediaPlayer.Enums;
+﻿using System.Runtime.InteropServices.JavaScript;
+
+namespace CrossMediaPlayer.Enums;
 
 public enum SideMenuTab
 {

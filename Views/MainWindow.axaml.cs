@@ -10,9 +10,24 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
     
-    protected override void OnClosing(WindowClosingEventArgs e)
+    protected override async void OnClosing(WindowClosingEventArgs e)
     {
-        base.OnClosing(e);
-        (DataContext as IDisposable)?.Dispose();
+        try
+        {
+            base.OnClosing(e);
+        
+            if (DataContext is IAsyncDisposable asyncDisposable)
+            {
+                await asyncDisposable.DisposeAsync();
+            }
+            else
+            {
+                (DataContext as IDisposable)?.Dispose();
+            }
+        }
+        catch (Exception exception)
+        {
+            // handle exception
+        }
     }
 }

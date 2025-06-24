@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CrossMediaPlayer.Enums;
 using CrossMediaPlayer.Services.Translation;
+using CrossMediaPlayer.Services.UserSettingsService;
 
 namespace CrossMediaPlayer.ViewModels.Pages;
 
@@ -8,9 +9,16 @@ public partial class OptionsPageViewModel : ViewModelBase
 {
     public ITranslationService TranslationService { get; }
     
-    public OptionsPageViewModel(ITranslationService translationService)
+    private readonly IUserSettingsService _userSettingsService;
+    
+    public OptionsPageViewModel(
+        ITranslationService translationService,
+        IUserSettingsService userSettingsService)
     {
         TranslationService = translationService;
+        _userSettingsService = userSettingsService;
+
+        _selectedDefaultTabOption = _userSettingsService.UserSettings.DefaultStartupTab;
     }
     
     [ObservableProperty]
@@ -20,13 +28,15 @@ public partial class OptionsPageViewModel : ViewModelBase
     private MinimizeBehaviourOption _selectedMinimizeBehaviourOption = MinimizeBehaviourOption.TaskBar;
     
     [ObservableProperty]
-    private SideMenuTab _selectedDefaultTabOption = SideMenuTab.Artists;
+    private SideMenuTab _selectedDefaultTabOption;
     
     [ObservableProperty]
     private ThemeOption _selectedThemeOption = ThemeOption.LightMode;
     
     partial void OnSelectedLanguageOptionChanged(LanguageOption value)
     {
+        _userSettingsService.UserSettings.SaveLanguageOption(value);
+        
         TranslationService.SetLanguage(value);
         
         // The rest of this function simply forces the values to change to a temp value and then back to the actual
@@ -51,16 +61,16 @@ public partial class OptionsPageViewModel : ViewModelBase
 
     partial void OnSelectedMinimizeBehaviourOptionChanged(MinimizeBehaviourOption value)
     {
-        
+        _userSettingsService.UserSettings.SaveMinimizeBehaviourOption(value);
     }
 
     partial void OnSelectedDefaultTabOptionChanged(SideMenuTab value)
     {
-        
+        _userSettingsService.UserSettings.SaveDefaultStartupTab(value);
     }
 
     partial void OnSelectedThemeOptionChanged(ThemeOption value)
     {
-        
+        _userSettingsService.UserSettings.SaveThemeOption(value);
     }
 }

@@ -1,7 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CrossMediaPlayer.Enums;
 using CrossMediaPlayer.Services.AppNavigation;
 using CrossMediaPlayer.Services.Translation;
+using CrossMediaPlayer.Services.UserSettingsService;
 using CrossMediaPlayer.Views.Pages;
 
 namespace CrossMediaPlayer.ViewModels;
@@ -11,15 +14,18 @@ public partial class SideBarViewModel : ViewModelBase
     public ITranslationService TranslationService { get; }
     
     private readonly IAppNavigationService _appNavigationService;
+    private readonly IUserSettingsService _userSettingsService;
     
     public SideBarViewModel(
         ITranslationService  translationService,
-        IAppNavigationService appNavigationService)
+        IAppNavigationService appNavigationService,
+        IUserSettingsService userSettingsService)
     {
         TranslationService = translationService;
         _appNavigationService = appNavigationService;
+        _userSettingsService = userSettingsService;
         
-        _artistsButtonSelected = true;
+        SetDefaultTab();
     }
     
     [ObservableProperty]
@@ -39,7 +45,7 @@ public partial class SideBarViewModel : ViewModelBase
     
     [ObservableProperty]
     private bool _optionsButtonSelected;
-
+    
 
     [RelayCommand]
     public void MediaLibraryButtonClick()
@@ -101,6 +107,36 @@ public partial class SideBarViewModel : ViewModelBase
         _appNavigationService.SetContentsPage(new OptionsPageView());
     }
 
+    private void SetDefaultTab()
+    {
+        switch (_userSettingsService.UserSettings.DefaultStartupTab)
+        {
+            case SideMenuTab.MediaLibrary:
+                MediaLibraryButtonSelected = true;
+                break;
+            
+            case SideMenuTab.Artists: default:
+                ArtistsButtonSelected = true;
+                break;
+            
+            case SideMenuTab.Albums:
+                AlbumsButtonSelected = true;
+                break;
+            
+            case SideMenuTab.Playlists:
+                PlaylistsButtonSelected = true;
+                break;
+            
+            case SideMenuTab.MediaFolders:
+                MediaFoldersButtonSelected = true;
+                break;
+            
+            case SideMenuTab.Options:
+                OptionsButtonSelected = true;
+                break;
+        }
+    }
+    
     private void ResetButtonsSelected()
     {
         MediaLibraryButtonSelected = false;
