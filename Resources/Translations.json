@@ -56,6 +56,12 @@
     "pl": "Opcje"
   },
 
+  "MediaFolders.MediaFoldersTitle":
+  {
+    "en": "Media Folders",
+    "pl": "Foldery multimediów"
+  },
+  
   "Options.OptionsTitle":
   {
     "en": "Options",

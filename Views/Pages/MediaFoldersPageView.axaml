@@ -7,5 +7,11 @@
               x:Class="CrossMediaPlayer.Views.Pages.MediaFoldersPageView"
               x:DataType="vm:MediaFoldersPageViewModel"
               Background="White">
-    Media Folders Page
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="30,10,0,0">
+        <Label FontSize="20" Margin="-20,0,0,40"
+               Content="{Binding TranslationService[MediaFolders.MediaFoldersTitle]}">
+        </Label>
+        
+        
+    </StackPanel>
 </UserControl>
