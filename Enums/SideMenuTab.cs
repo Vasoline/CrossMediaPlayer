@@ -8,6 +8,6 @@ public enum SideMenuTab
     Artists = 1,
     Albums = 2,
     Playlists = 3,
-    MediaFolders = 4,
+    AudioEffects = 4,
     Options = 5
 }

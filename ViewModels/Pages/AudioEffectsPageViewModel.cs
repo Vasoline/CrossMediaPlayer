@@ -2,10 +2,10 @@
 
 namespace CrossMediaPlayer.ViewModels.Pages;
 
-public partial class MediaFoldersPageViewModel : ViewModelBase
+public partial class AudioEffectsPageViewModel : ViewModelBase
 {
     public ITranslationService TranslationService { get; }
-    public MediaFoldersPageViewModel(ITranslationService translationService)
+    public AudioEffectsPageViewModel(ITranslationService translationService)
     {
         TranslationService = translationService;
     }

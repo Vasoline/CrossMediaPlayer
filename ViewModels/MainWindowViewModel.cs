@@ -58,8 +58,8 @@ public partial class MainWindowViewModel : ViewModelBase, IAsyncDisposable
                 _appNavigationService.SetContentsPage(new PlaylistsPageView());
                 break;
             
-            case SideMenuTab.MediaFolders:
-                _appNavigationService.SetContentsPage(new MediaFoldersPageView());
+            case SideMenuTab.AudioEffects:
+                _appNavigationService.SetContentsPage(new AudioEffectsPageView());
                 break;
             
             case SideMenuTab.Options:

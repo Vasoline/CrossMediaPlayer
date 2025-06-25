@@ -45,7 +45,7 @@
                 Classes.sideMenuButtonSelected="{Binding MediaFoldersButtonSelected}"
                 Command="{Binding MediaFoldersButtonClick}"
                 BorderThickness="0,0,0,1"
-                Content="{Binding TranslationService[SideBar.MediaFoldersTab]}">
+                Content="{Binding TranslationService[SideBar.AudioEffectsTab]}">
         </Button>
         
         <Button Classes="sideMenuButton"

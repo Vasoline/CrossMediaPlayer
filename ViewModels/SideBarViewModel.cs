@@ -94,7 +94,7 @@ public partial class SideBarViewModel : ViewModelBase
         
         MediaFoldersButtonSelected = true;
         
-        _appNavigationService.SetContentsPage(new MediaFoldersPageView());
+        _appNavigationService.SetContentsPage(new AudioEffectsPageView());
     }
     
     [RelayCommand]
@@ -127,7 +127,7 @@ public partial class SideBarViewModel : ViewModelBase
                 PlaylistsButtonSelected = true;
                 break;
             
-            case SideMenuTab.MediaFolders:
+            case SideMenuTab.AudioEffects:
                 MediaFoldersButtonSelected = true;
                 break;
             

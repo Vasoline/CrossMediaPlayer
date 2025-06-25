@@ -4,14 +4,13 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:vm="clr-namespace:CrossMediaPlayer.ViewModels.Pages"
               mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-              x:Class="CrossMediaPlayer.Views.Pages.MediaFoldersPageView"
-              x:DataType="vm:MediaFoldersPageViewModel"
+              x:Class="CrossMediaPlayer.Views.Pages.AudioEffectsPageView"
+              x:DataType="vm:AudioEffectsPageViewModel"
               Background="White">
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="30,10,0,0">
         <Label FontSize="20" Margin="-20,0,0,40"
-               Content="{Binding TranslationService[MediaFolders.MediaFoldersTitle]}">
+               Content="{Binding TranslationService[AudioEffects.AudioEffectsTitle]}">
         </Label>
-        
         
     </StackPanel>
 </UserControl>

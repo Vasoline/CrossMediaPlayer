@@ -45,10 +45,10 @@
     "en": "Playlists",
     "pl": "Playlisty"
   },
-  "SideBar.MediaFoldersTab":
+  "SideBar.AudioEffectsTab":
   {
-    "en": "Media Folders",
-    "pl": "Foldery multimediów"
+    "en": "Audio Effects",
+    "pl": ""
   },
   "SideBar.OptionsTab":
   {
@@ -56,10 +56,10 @@
     "pl": "Opcje"
   },
 
-  "MediaFolders.MediaFoldersTitle":
+  "AudioEffects.AudioEffectsTitle":
   {
-    "en": "Media Folders",
-    "pl": "Foldery multimediów"
+    "en": "Audio Effects",
+    "pl": ""
   },
   
   "Options.OptionsTitle":
@@ -122,10 +122,10 @@
     "en": "Playlists",
     "pl": "Playlisty"
   },
-  "Options.DefaultStartupTabItemMediaFolders":
+  "Options.DefaultStartupTabItemAudioEffects":
   {
-    "en": "Media Folders",
-    "pl": "Foldery multimediów"
+    "en": "Audio Effects",
+    "pl": ""
   },
   "Options.DefaultStartupTabItemOptions":
   {
@@ -146,5 +146,10 @@
   {
     "en": "Dark Mode",
     "pl": "Tryb ciemny"
+  },
+  "Options.MediaFoldersLabel":
+  {
+    "en": "Media Folders",
+    "pl": "Foldery multimediów"
   }
 }
