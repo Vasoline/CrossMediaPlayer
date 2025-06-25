@@ -2,6 +2,7 @@
 using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CrossMediaPlayer.Enums;
+using CrossMediaPlayer.Services.UserSettingsService;
 
 namespace CrossMediaPlayer.Services.Translation;
 
@@ -9,11 +10,13 @@ public class TranslationService : ObservableObject, ITranslationService
 {
     public string this[string key] => GetTranslatedTermFromKey(key);
 
-    private LanguageOption _currentLanguage = LanguageOption.En;
+    private LanguageOption _currentLanguage;
     private Dictionary<string, Dictionary<string, string>> _translationsDictionary = new();
 
-    public TranslationService()
+    public TranslationService(IUserSettingsService userSettingsService)
     {
+        _currentLanguage = userSettingsService.UserSettings.Language;
+        
         LoadTranslationsFromFile();
     }
     

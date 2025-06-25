@@ -42,6 +42,7 @@ public partial class App : Application
 
             ServiceProvider = services.BuildServiceProvider();
 
+            // We need to load the user settings so the data is ready for use in page constructors
             var userSettingsService = ServiceProvider.GetService<IUserSettingsService>();
             userSettingsService?.LoadUserSettings(); 
             

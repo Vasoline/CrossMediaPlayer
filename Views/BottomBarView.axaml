@@ -77,12 +77,12 @@
                         Canvas.Left="1" 
                         Canvas.Top="-8" 
                         Width="160"
-                        Value="0"
+                        Value="{Binding PlayMode}"
                         Minimum="0"
-                        Maximum="100"
-                        TickFrequency="50"
+                        Maximum="2"
+                        TickFrequency="1"
                         IsSnapToTickEnabled="True"
-                        Ticks="0, 50, 100"/>
+                        Ticks="0, 1, 2"/>
             </Canvas>
         
             <!-- Back Button -->

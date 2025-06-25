@@ -18,20 +18,23 @@ public partial class OptionsPageViewModel : ViewModelBase
         TranslationService = translationService;
         _userSettingsService = userSettingsService;
 
+        _selectedLanguageOption = _userSettingsService.UserSettings.Language;
+        _selectedMinimizeBehaviourOption = _userSettingsService.UserSettings.MinimizeBehaviour;
         _selectedDefaultTabOption = _userSettingsService.UserSettings.DefaultStartupTab;
+        _selectedThemeOption = _userSettingsService.UserSettings.Theme;
     }
     
     [ObservableProperty]
-    private LanguageOption _selectedLanguageOption = LanguageOption.En;
+    private LanguageOption _selectedLanguageOption;
     
     [ObservableProperty]
-    private MinimizeBehaviourOption _selectedMinimizeBehaviourOption = MinimizeBehaviourOption.TaskBar;
+    private MinimizeBehaviourOption _selectedMinimizeBehaviourOption;
     
     [ObservableProperty]
     private SideMenuTab _selectedDefaultTabOption;
     
     [ObservableProperty]
-    private ThemeOption _selectedThemeOption = ThemeOption.LightMode;
+    private ThemeOption _selectedThemeOption;
     
     partial void OnSelectedLanguageOptionChanged(LanguageOption value)
     {
