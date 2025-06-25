@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CrossMediaPlayer.Enums;
 using CrossMediaPlayer.Services.MediaPlay;
 using CrossMediaPlayer.Services.Translation;
+using CrossMediaPlayer.Services.UserSettingsService;
 using LibVLCSharp.Shared;
 
 namespace CrossMediaPlayer.ViewModels;
@@ -13,23 +15,31 @@ public partial class BottomBarViewModel : ViewModelBase
     public ITranslationService TranslationService { get; }
     
     private readonly IMediaPlayService _mediaPlayService;
+    private readonly IUserSettingsService _userSettingsService;
 
     public BottomBarViewModel(
         ITranslationService translationService,
-        IMediaPlayService mediaPlayService)
+        IMediaPlayService mediaPlayService,
+        IUserSettingsService userSettingsService)
     {
         TranslationService = translationService;
+        
         _mediaPlayService = mediaPlayService;
+        _userSettingsService = userSettingsService;
         
         _mediaPlayService.LengthChanged += OnLengthChanged;
         _mediaPlayService.TimeChanged += OnTimeChanged;
         _mediaPlayService.MediaEnded += OnMediaEnded;
         
-        OnVolumeChanged(Volume);
+        Volume = _userSettingsService.UserSettings.AudioVolume;
+        PlayMode = (int)_userSettingsService.UserSettings.PlayMode;
     }
     
     [ObservableProperty]
-    private double _volume = 80;
+    private double _volume;
+    
+    [ObservableProperty]
+    private int _playMode;
     
     [ObservableProperty]
     private string _mediaLength = "--:--";
@@ -117,6 +127,18 @@ public partial class BottomBarViewModel : ViewModelBase
         var volumeAsInt = (int)Math.Clamp(value, 0, 100);
         
         _mediaPlayService.ChangeVolume(volumeAsInt);
+        
+        _userSettingsService.UserSettings.SaveAudioVolume(volumeAsInt);
+    }
+
+    partial void OnPlayModeChanged(int value)
+    {
+        var playModeOptionValue = (PlayModeOption)Math.Clamp(
+            value,
+            (int)PlayModeOption.Standard,
+            (int)PlayModeOption.Random);
+        
+        _userSettingsService.UserSettings.SavePlayModeOption(playModeOptionValue);
     }
     
     partial void OnMediaSeekPositionChanged(double value)

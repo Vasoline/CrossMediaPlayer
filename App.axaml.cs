@@ -7,6 +7,7 @@ using CrossMediaPlayer.Services.AppNavigation;
 using CrossMediaPlayer.Services.Database;
 using CrossMediaPlayer.Services.MediaPlay;
 using CrossMediaPlayer.Services.Translation;
+using CrossMediaPlayer.Services.UserSettingsService;
 using CrossMediaPlayer.ViewModels;
 using CrossMediaPlayer.ViewModels.Pages;
 using CrossMediaPlayer.Views;
@@ -41,6 +42,10 @@ public partial class App : Application
 
             ServiceProvider = services.BuildServiceProvider();
 
+            // We need to load the user settings so the data is ready for use in page constructors
+            var userSettingsService = ServiceProvider.GetService<IUserSettingsService>();
+            userSettingsService?.LoadUserSettings(); 
+            
             desktop.MainWindow = new MainWindow
             {
                 DataContext = ServiceProvider.GetService<MainWindowViewModel>()
@@ -84,5 +89,6 @@ public partial class App : Application
         services.AddSingleton<IMediaPlayService, MediaPlayService>();
         services.AddSingleton<IDatabaseService, DatabaseService>();
         services.AddSingleton<ITranslationService, TranslationService>();
+        services.AddSingleton<IUserSettingsService, UserSettingsService>();
     }
 }
