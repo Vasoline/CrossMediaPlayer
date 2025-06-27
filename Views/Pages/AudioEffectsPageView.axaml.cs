@@ -4,12 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CrossMediaPlayer.Views.Pages;
 
-public partial class MediaFoldersPageView : UserControl
+public partial class AudioEffectsPageView : UserControl
 {
-    public MediaFoldersPageView()
+    public AudioEffectsPageView()
     {
         InitializeComponent();
         
-        DataContext = App.ServiceProvider?.GetRequiredService<MediaFoldersPageViewModel>();
+        DataContext = App.ServiceProvider?.GetRequiredService<AudioEffectsPageViewModel>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using CrossMediaPlayer.Enums;
 
@@ -23,6 +24,9 @@ public class UserSettings
     
     [JsonInclude]
     public PlayModeOption PlayMode { get; private set; } = PlayModeOption.Standard;
+    
+    [JsonInclude]
+    public List<string> MediaFolders { get; private set; } = new();
     
     
     public void SaveLanguageOption(LanguageOption languageOption)
@@ -56,5 +60,10 @@ public class UserSettings
     public void SavePlayModeOption(PlayModeOption playModeOption)
     {
         PlayMode = playModeOption;
+    }
+    
+    public void SaveMediaFolders(List<string> mediaFolders)
+    {
+        MediaFolders = mediaFolders;
     }
 }
