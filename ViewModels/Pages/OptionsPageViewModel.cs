@@ -1,4 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Avalonia.Controls;
+using Avalonia.Platform.Storage;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CrossMediaPlayer.Enums;
 using CrossMediaPlayer.Services.Translation;
 using CrossMediaPlayer.Services.UserSettingsService;
@@ -22,6 +28,11 @@ public partial class OptionsPageViewModel : ViewModelBase
         _selectedMinimizeBehaviourOption = _userSettingsService.UserSettings.MinimizeBehaviour;
         _selectedDefaultTabOption = _userSettingsService.UserSettings.DefaultStartupTab;
         _selectedThemeOption = _userSettingsService.UserSettings.Theme;
+
+        foreach (var mediaFolder in _userSettingsService.UserSettings.MediaFolders)
+        {
+            MediaFoldersList.Add(mediaFolder);
+        }
     }
     
     [ObservableProperty]
@@ -35,6 +46,12 @@ public partial class OptionsPageViewModel : ViewModelBase
     
     [ObservableProperty]
     private ThemeOption _selectedThemeOption;
+    
+    [ObservableProperty]
+    private ObservableCollection<string> _mediaFoldersList = new();
+    
+    [ObservableProperty]
+    private string? _selectedMediaFolder;
     
     partial void OnSelectedLanguageOptionChanged(LanguageOption value)
     {
@@ -75,5 +92,41 @@ public partial class OptionsPageViewModel : ViewModelBase
     partial void OnSelectedThemeOptionChanged(ThemeOption value)
     {
         _userSettingsService.UserSettings.SaveThemeOption(value);
+    }
+
+    [RelayCommand]
+    public async Task MediaFoldersAddButtonClick(Button mediaFoldersAddButton)
+    {
+        var topLevel = TopLevel.GetTopLevel(mediaFoldersAddButton);
+    
+        if (topLevel != null)
+        {
+            var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+            {
+                Title = "Select Media Folder",
+                AllowMultiple = false
+            });
+
+            if (folders.Count > 0)
+            {
+                if (!MediaFoldersList.Contains(folders.First().Path.LocalPath))
+                {
+                    MediaFoldersList.Add(folders.First().Path.LocalPath);
+                    
+                    _userSettingsService.UserSettings.SaveMediaFolders(MediaFoldersList.ToList());
+                }
+            }
+        }
+    }
+    
+    [RelayCommand]
+    public void MediaFoldersRemoveButtonClick()
+    {
+        if (SelectedMediaFolder != null)
+        {
+            MediaFoldersList.Remove(SelectedMediaFolder);
+            
+            _userSettingsService.UserSettings.SaveMediaFolders(MediaFoldersList.ToList());
+        }
     }
 }

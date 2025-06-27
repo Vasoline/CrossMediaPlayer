@@ -151,5 +151,15 @@
   {
     "en": "Media Folders",
     "pl": "Foldery multimediów"
+  },
+  "Options.MediaFoldersAddButton":
+  {
+    "en": "Add New Folder",
+    "pl": ""
+  },
+  "Options.MediaFoldersRemoveButton":
+  {
+    "en": "Remove Selected Folder",
+    "pl": ""
   }
 }

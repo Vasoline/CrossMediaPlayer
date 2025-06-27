@@ -54,21 +54,32 @@
                    Content="{Binding TranslationService[Options.MediaFoldersLabel]}">
             </Label>
             
-            <ListBox Height="230">
-                <ListBoxItem>C:\folder1\example</ListBoxItem>
-                <ListBoxItem>C:\folder2\test</ListBoxItem>
-                <ListBoxItem>C:\folder3\demo</ListBoxItem>
-                <ListBoxItem>C:\folder1\example</ListBoxItem>
-                <ListBoxItem>C:\folder2\test</ListBoxItem>
-                <ListBoxItem>C:\folder3\demo</ListBoxItem>
-                <ListBoxItem>C:\folder1\example</ListBoxItem>
-                <ListBoxItem>C:\folder2\test</ListBoxItem>
-                <ListBoxItem>C:\folder3\demo</ListBoxItem>
+            <ListBox 
+                Height="230"
+                BorderThickness="1"
+                BorderBrush="DarkGray"
+                Background="White"
+                ItemsSource="{Binding MediaFoldersList}"
+                SelectedItem="{Binding SelectedMediaFolder}">
             </ListBox>
             
             <StackPanel Orientation="Horizontal" Margin="0,12,0,0" MinWidth="350">
-                <Button Margin="0,0,10,0" Content="Add New"/>
-                <Button Content="Remove Selected"/>
+                <Button 
+                    MinWidth="170"
+                    Margin="0,0,10,0"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="{Binding TranslationService[Options.MediaFoldersAddButton]}"
+                    Command="{Binding MediaFoldersAddButtonClick}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                />
+                <Button 
+                    MinWidth="170"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="{Binding TranslationService[Options.MediaFoldersRemoveButton]}"
+                    Command="{Binding MediaFoldersRemoveButtonClick}"
+                />
             </StackPanel>
         </StackPanel>
     </StackPanel>
