@@ -7,5 +7,23 @@
              x:Class="CrossMediaPlayer.Views.TopBarView"
              x:DataType="vm:TopBarViewModel"
              Background="White">
-    Top Bar
+    <Panel>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+            <Button MaxHeight="25" Margin="5,0,0,0">
+                B
+            </Button>
+            
+            <Button MaxHeight="25" Margin="5,0,0,0">
+                F
+            </Button>
+        </StackPanel>
+        
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+            <Label>Progress</Label>
+            
+            <ProgressBar Margin="5,0,5,0">
+                
+            </ProgressBar>
+        </StackPanel>
+    </Panel>
 </UserControl>
