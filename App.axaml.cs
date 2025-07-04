@@ -10,6 +10,7 @@ using CrossMediaPlayer.Database.Repositories.Album;
 using CrossMediaPlayer.Database.Repositories.Artist;
 using CrossMediaPlayer.Database.Repositories.Song;
 using CrossMediaPlayer.Services.AppNavigation;
+using CrossMediaPlayer.Services.MediaLibraryService;
 using CrossMediaPlayer.Services.MediaPlay;
 using CrossMediaPlayer.Services.Translation;
 using CrossMediaPlayer.Services.UserSettingsService;
@@ -116,6 +117,7 @@ public partial class App : Application
         services.AddSingleton<IMediaPlayService, MediaPlayService>();
         services.AddSingleton<ITranslationService, TranslationService>();
         services.AddSingleton<IUserSettingsService, UserSettingsService>();
+        services.AddSingleton<IMediaLibraryService, MediaLibraryService>();
     }
 
     private void InitialiseRepositories(ServiceCollection services)

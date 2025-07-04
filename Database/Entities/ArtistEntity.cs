@@ -4,7 +4,8 @@ namespace CrossMediaPlayer.Database.Entities;
 
 public class ArtistEntity
 {
-    public required int Id { get; set; }
+    public int Id { get; set; }
     
-    public required string Name { get; set; }
+    [Required] [MaxLength(256)]
+    public string Name { get; set; } = string.Empty;
 }

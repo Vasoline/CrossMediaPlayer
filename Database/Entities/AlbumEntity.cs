@@ -1,6 +1,17 @@
-﻿namespace CrossMediaPlayer.Database.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CrossMediaPlayer.Database.Entities;
 
 public class AlbumEntity
 {
-    public required int Id { get; set; }
+    [Required]
+    public int Id { get; set; }
+    
+    [Required] [MaxLength(256)]
+    public string Name { get; set; } = string.Empty;
+    
+    [Required]
+    public ushort? ReleaseYear { get; set; }
+    
+    public int? LengthInSeconds { get; set; }
 }
