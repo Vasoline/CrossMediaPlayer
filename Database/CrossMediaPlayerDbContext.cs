@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using CrossMediaPlayer.Database.Entities;
+﻿using CrossMediaPlayer.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrossMediaPlayer.Database;
@@ -35,6 +33,8 @@ public class CrossMediaPlayerDbContext : DbContext
         modelBuilder.Entity<AlbumEntity>(entity =>
         {
             entity.HasKey(e => e.Id);
+            
+            entity.HasIndex(e => e.ArtistId);
         });
     }
     
@@ -43,6 +43,9 @@ public class CrossMediaPlayerDbContext : DbContext
         modelBuilder.Entity<SongEntity>(entity =>
         {
             entity.HasKey(e => e.Id);
+            
+            entity.HasIndex(e => e.ArtistId);
+            entity.HasIndex(e => e.AlbumId);
         });
     }
 }

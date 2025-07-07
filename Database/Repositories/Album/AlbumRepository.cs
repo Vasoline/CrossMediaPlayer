@@ -21,4 +21,12 @@ public class AlbumRepository : IAlbumRepository
             .AsNoTracking()
             .ToListAsync();
     }
+    
+    public async Task<List<AlbumEntity>> GetAllAlbumsForArtist(int artistId)
+    {
+        return await _dbContext.Albums
+            .AsNoTracking()
+            .Where(x => x.ArtistId == artistId)
+            .ToListAsync();
+    }
 }

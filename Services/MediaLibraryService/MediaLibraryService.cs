@@ -1,8 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using CrossMediaPlayer.Database.Entities;
 using CrossMediaPlayer.Database.Repositories.Album;
 using CrossMediaPlayer.Database.Repositories.Artist;
 using CrossMediaPlayer.Database.Repositories.Song;
+using CrossMediaPlayer.Enums;
 using CrossMediaPlayer.Services.UserSettingsService;
 
 namespace CrossMediaPlayer.Services.MediaLibraryService;
@@ -26,11 +32,16 @@ public class MediaLibraryService : IMediaLibraryService
         _userSettingsService = userSettingsService;
     }
 
-    private static bool _mediaLibraryIsSyncing = false;
+    private MediaSyncStatus _mediaSyncStatus = MediaSyncStatus.NotRunning;
 
+    public MediaSyncStatus GetMediaSyncStatus()
+    {
+        return _mediaSyncStatus;
+    }
+    
     public async Task SyncMediaLibrary()
     {
-        if (_mediaLibraryIsSyncing || !_userSettingsService.UserSettings.MediaFolders.Any())
+        if (_mediaSyncStatus != MediaSyncStatus.NotRunning || !_userSettingsService.UserSettings.MediaFolders.Any())
         {
             // Already running or no media folders set
             
@@ -38,10 +49,37 @@ public class MediaLibraryService : IMediaLibraryService
         }
 
         await CheckExistingMedia();
+        await AddNewMedia();
     }
 
     private async Task CheckExistingMedia()
     {
-        
+        _mediaSyncStatus = MediaSyncStatus.CheckingExistingMedia;
+
+        var allSongsInDb = _songRepository.StreamGetAllSongs();
+
+        var songsToRemove = new ConcurrentBag<int>();
+
+        await Parallel.ForEachAsync(allSongsInDb, 
+            new ParallelOptions { MaxDegreeOfParallelism = Math.Min(Math.Max(1, Environment.ProcessorCount - 1), 8) }, 
+            async (song, _) =>
+        {
+            if (!File.Exists(song.FileLocation))
+            {
+                songsToRemove.Add(song.Id);
+            }
+        });
+
+        if (songsToRemove.Any())
+        {
+            _mediaSyncStatus = MediaSyncStatus.RemovingMissingMedia;
+            
+            await _songRepository.DeleteSongs(songsToRemove.ToList());
+        }
+    }
+
+    private async Task AddNewMedia()
+    {
+        _mediaSyncStatus = MediaSyncStatus.AddingNewMedia;
     }
 }

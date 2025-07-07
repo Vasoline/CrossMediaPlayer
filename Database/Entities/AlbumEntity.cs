@@ -7,6 +7,8 @@ public class AlbumEntity
     [Required]
     public int Id { get; set; }
     
+    public int? ArtistId { get; set; }
+    
     [Required] [MaxLength(256)]
     public string Name { get; set; } = string.Empty;
     
