@@ -12,7 +12,6 @@ public class AlbumEntity
     [Required] [MaxLength(256)]
     public string Name { get; set; } = string.Empty;
     
-    [Required]
     public ushort? ReleaseYear { get; set; }
     
     public int? LengthInSeconds { get; set; }

@@ -42,11 +42,6 @@ public partial class App : Application
             
             Core.Initialize();
             
-            using (var db = new CrossMediaPlayerDbContext())
-            {
-                db.Database.EnsureCreated();
-            }
-            
             var services = new ServiceCollection();
             
             // Database Setup
@@ -70,6 +65,12 @@ public partial class App : Application
 
             ServiceProvider = services.BuildServiceProvider();
 
+            using (var scope = ServiceProvider.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetService<CrossMediaPlayerDbContext>();
+                db?.Database.EnsureCreated();
+            }
+            
             // We need to load the user settings so the data is ready for use in page constructors
             var userSettingsService = ServiceProvider.GetService<IUserSettingsService>();
             userSettingsService?.LoadUserSettings(); 

@@ -32,6 +32,7 @@
         <PackageReference Include="MetaBrainz.MusicBrainz" Version="6.1.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.6" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+        <PackageReference Include="TagLibSharp" Version="2.3.0" />
         <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.21" />
     </ItemGroup>
 

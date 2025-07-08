@@ -15,7 +15,7 @@ public class AlbumRepository : IAlbumRepository
         _dbContext = dbContext;
     }
     
-    public async Task<List<AlbumEntity>> GetAllAlbumsForListView()
+    public async Task<List<AlbumEntity>> GetAllAlbums()
     {
         return await _dbContext.Albums
             .AsNoTracking()
@@ -28,5 +28,14 @@ public class AlbumRepository : IAlbumRepository
             .AsNoTracking()
             .Where(x => x.ArtistId == artistId)
             .ToListAsync();
+    }
+
+    public async Task<AlbumEntity> AddNewAlbum(AlbumEntity album)
+    {
+        var newAlbum = await _dbContext.Albums.AddAsync(album);
+        
+        await _dbContext.SaveChangesAsync();
+        
+        return newAlbum.Entity;
     }
 }

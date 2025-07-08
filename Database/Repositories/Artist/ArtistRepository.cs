@@ -14,10 +14,19 @@ public class ArtistRepository : IArtistRepository
         _dbContext = dbContext;
     }
     
-    public async Task<List<ArtistEntity>> GetAllArtistsForListView()
+    public async Task<List<ArtistEntity>> GetAllArtists()
     {
         return await _dbContext.Artists
             .AsNoTracking()
             .ToListAsync();
+    }
+
+    public async Task<ArtistEntity> AddNewArtist(ArtistEntity artist)
+    {
+        var newArtist = await _dbContext.Artists.AddAsync(artist);
+        
+        await _dbContext.SaveChangesAsync();
+        
+        return newArtist.Entity;
     }
 }

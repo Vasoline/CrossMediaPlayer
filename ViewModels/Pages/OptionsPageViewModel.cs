@@ -6,6 +6,7 @@ using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrossMediaPlayer.Enums;
+using CrossMediaPlayer.Services.MediaLibraryService;
 using CrossMediaPlayer.Services.Translation;
 using CrossMediaPlayer.Services.UserSettingsService;
 
@@ -16,13 +17,16 @@ public partial class OptionsPageViewModel : ViewModelBase
     public ITranslationService TranslationService { get; }
     
     private readonly IUserSettingsService _userSettingsService;
+    private readonly IMediaLibraryService _mediaLibraryService;
     
     public OptionsPageViewModel(
         ITranslationService translationService,
-        IUserSettingsService userSettingsService)
+        IUserSettingsService userSettingsService,
+        IMediaLibraryService mediaLibraryService)
     {
         TranslationService = translationService;
         _userSettingsService = userSettingsService;
+        _mediaLibraryService = mediaLibraryService;
 
         _selectedLanguageOption = _userSettingsService.UserSettings.Language;
         _selectedMinimizeBehaviourOption = _userSettingsService.UserSettings.MinimizeBehaviour;
@@ -116,6 +120,8 @@ public partial class OptionsPageViewModel : ViewModelBase
                     _userSettingsService.UserSettings.SaveMediaFolders(MediaFoldersList.ToList());
                 }
             }
+            
+            await _mediaLibraryService.SyncMediaLibrary();
         }
     }
     

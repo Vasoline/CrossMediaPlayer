@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CrossMediaPlayer.Enums;
 using CrossMediaPlayer.Services.AppNavigation;
+using CrossMediaPlayer.Services.MediaLibraryService;
 using CrossMediaPlayer.Services.MediaPlay;
 using CrossMediaPlayer.Services.UserSettingsService;
 using CrossMediaPlayer.Views.Pages;

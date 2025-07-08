@@ -6,5 +6,6 @@ namespace CrossMediaPlayer.Database.Repositories.Artist;
 
 public interface IArtistRepository
 {
-    public Task<List<ArtistEntity>> GetAllArtistsForListView();
+    public Task<List<ArtistEntity>> GetAllArtists();
+    public Task<ArtistEntity> AddNewArtist(ArtistEntity artist);
 }

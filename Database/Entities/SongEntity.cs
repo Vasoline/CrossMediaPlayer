@@ -15,6 +15,9 @@ public class SongEntity
     [Required] [MaxLength(256)]
     public string Title { get; set; } = String.Empty;
     
+    [Required]
+    public ushort TrackNumber { get; set; }
+    
     public ushort? YearReleased { get; set; }
     
     public int? LengthInSeconds { get; set; }
@@ -24,4 +27,10 @@ public class SongEntity
     
     [Required] [MaxLength(4096)]
     public string FileLocation { get; set; } = string.Empty;
+    
+    [Required]
+    public long FileSize { get; set; }
+    
+    [Required]
+    public DateTime LastModified { get; set; }
 }

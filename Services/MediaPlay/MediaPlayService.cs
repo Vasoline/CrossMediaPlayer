@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using LibVLCSharp.Shared;
 
@@ -73,6 +74,18 @@ public class MediaPlayService : IMediaPlayService
     public void ChangeVolume(int volume)
     {
         _mediaPlayer.Volume = volume;
+    }
+    
+    public async Task<bool> IsAudioFile(string fileLocation)
+    {
+        using var media = new Media(_libVlc, fileLocation, FromType.FromPath);
+        
+        await media.Parse(MediaParseOptions.ParseLocal);
+        
+        var hasAudio = media.Tracks.Any(t => t.TrackType == TrackType.Audio);
+        var hasVideo = media.Tracks.Any(t => t.TrackType == TrackType.Video);
+    
+        return hasAudio && !hasVideo;
     }
 
     public void Dispose()

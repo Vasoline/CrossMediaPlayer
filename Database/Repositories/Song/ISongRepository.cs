@@ -11,4 +11,6 @@ public interface ISongRepository
     public Task<List<SongEntity>> GetAllSongsForArtistUnknownAlbum();
     public IAsyncEnumerable<SongEntity> StreamGetAllSongs();
     public Task DeleteSongs(List<int> songsToDeleteIds);
+    public Task<List<string>> GetAllSongLocations();
+    public Task AddNewSongs(List<SongEntity> newSongs);
 }

@@ -8,7 +8,12 @@ public class CrossMediaPlayerDbContext : DbContext
     public DbSet<ArtistEntity> Artists { get; set; }
     public DbSet<AlbumEntity> Albums { get; set; }
     public DbSet<SongEntity> Songs { get; set; }
-
+    
+    public CrossMediaPlayerDbContext(DbContextOptions<CrossMediaPlayerDbContext> options)
+        : base(options)
+    {
+    }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         ConfigureArtistsTable(modelBuilder);
@@ -46,6 +51,9 @@ public class CrossMediaPlayerDbContext : DbContext
             
             entity.HasIndex(e => e.ArtistId);
             entity.HasIndex(e => e.AlbumId);
+            entity.HasIndex(e => e.FileLocation);
+            
+            entity.HasIndex(e => new { e.FileLocation, e.FileSize, e.LastModified });
         });
     }
 }

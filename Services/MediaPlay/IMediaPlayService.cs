@@ -21,4 +21,6 @@ public interface IMediaPlayService : IDisposable
     public void ResumeMedia();
     
     public void ChangeVolume(int volume);
+
+    public Task<bool> IsAudioFile(string fileLocation);
 }

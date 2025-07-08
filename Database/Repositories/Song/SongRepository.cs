@@ -51,4 +51,16 @@ public class SongRepository : ISongRepository
             .Where(x => songsToDeleteIds.Contains(x.Id))
             .ExecuteDeleteAsync();
     }
+
+    public async Task<List<string>> GetAllSongLocations()
+    {
+        return await _dbContext.Songs.AsNoTracking().Select(x => x.FileLocation).ToListAsync();
+    }
+
+    public async Task AddNewSongs(List<SongEntity> newSongs)
+    {
+        await _dbContext.Songs.AddRangeAsync(newSongs);
+        
+        await _dbContext.SaveChangesAsync();
+    }
 }
