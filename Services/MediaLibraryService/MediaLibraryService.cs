@@ -78,7 +78,8 @@ public class MediaLibraryService : IMediaLibraryService
         var songsToRemove = new ConcurrentBag<int>();
 
         await Parallel.ForEachAsync(allSongsInDb, 
-            new ParallelOptions { MaxDegreeOfParallelism = Math.Min(Math.Max(1, Environment.ProcessorCount - 1), 8) }, (song, _) =>
+            new ParallelOptions { MaxDegreeOfParallelism = Math.Min(Math.Max(1, Environment.ProcessorCount - 1), 8) },
+            (song, _) =>
             {
                 if (!File.Exists(song.FileLocation))
                 {
@@ -102,9 +103,22 @@ public class MediaLibraryService : IMediaLibraryService
 
         var songsToAdd = new List<SongEntity>();
         
-        var existingMediaFiles = await _songRepository.GetAllSongLocations();
+        var existingMediaFiles = new HashSet<string>(
+            await _songRepository.GetAllSongLocations(),
+            StringComparer.OrdinalIgnoreCase);
+        
         var existingArtists = await _artistRepository.GetAllArtists();
         var existingAlbums = await _albumRepository.GetAllAlbums();
+        
+        var artistLookup = existingArtists.ToDictionary(
+            x => x.Name, 
+            x => x, 
+            StringComparer.OrdinalIgnoreCase);
+
+        var albumLookup = existingAlbums.ToDictionary(
+            x => x.Name, 
+            x => x, 
+            StringComparer.OrdinalIgnoreCase);
         
         var mediaFolders = _userSettingsService.UserSettings.MediaFolders;
 
@@ -131,40 +145,41 @@ public class MediaLibraryService : IMediaLibraryService
                 
                 if (!existingMediaFiles.Contains(fileLocation))
                 {
-                    var songMetaData = TagLib.File.Create(fileLocation);
+                    TagLib.File? songMetaData;
 
-                    var artistName = songMetaData.Tag.FirstPerformer ?? "Unknown Artist";
-                    var albumName = (songMetaData.Tag.Album ?? "Unknown Album");
+                    try
+                    { 
+                        songMetaData = TagLib.File.Create(fileLocation);
+                    }
+                    catch (Exception exception)
+                    {
+                        // log exception
+                        
+                        continue;
+                    }
+
+                    var artistName = songMetaData.Tag.AlbumArtists.FirstOrDefault()?.Trim() ?? "Unknown Artist";
+                    var albumName = (songMetaData.Tag.Album?.Trim() ?? "Unknown Album");
                     
-                    var songArtist = existingArtists
-                        .FirstOrDefault(x =>
-                            string.Equals(x.Name, artistName.Trim(), StringComparison.OrdinalIgnoreCase));
-                    
-                    var songAlbum = existingAlbums
-                        .FirstOrDefault(x => 
-                            string.Equals(x.Name, albumName.Trim(), StringComparison.OrdinalIgnoreCase));
-                    
-                    if (songArtist is null)
+                    if (!artistLookup.TryGetValue(artistName, out var songArtist))
                     {
                         songArtist = await _artistRepository.AddNewArtist(new ArtistEntity
                         {
-                            Name = songMetaData.Tag.FirstPerformer?.Trim() ?? "Unknown Artist"
+                            Name = artistName
                         });
-                        
-                        existingArtists.Add(songArtist);
+                    
+                        artistLookup[artistName] = songArtist;
                     }
 
-                    if (songAlbum is null)
+                    if (!albumLookup.TryGetValue(albumName, out var songAlbum))
                     {
                         songAlbum = await _albumRepository.AddNewAlbum(new AlbumEntity
                         {
                             ArtistId = songArtist.Id,
-                            Name = songMetaData.Tag.Album?.Trim() ?? "Unknown Album",
-                            // ReleaseYear = null, - need to find best way to do this after, probably using musicbrainz
-                            // LengthInSeconds = null - need to calculate this at the end
+                            Name = albumName,
                         });
-                        
-                        existingAlbums.Add(songAlbum);
+                    
+                        albumLookup[albumName] = songAlbum;
                     }
                     
                     songsToAdd.Add(new SongEntity
