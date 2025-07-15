@@ -35,10 +35,15 @@ public class MediaLibraryService : IMediaLibraryService
         _songRepository = songRepository;
         _userSettingsService = userSettingsService;
         _mediaPlayService = mediaPlayService;
+        
+        NewSongsAddedCountChanged?.Invoke(this, _newSongsAddedCount);
     }
 
     private MediaSyncStatus _mediaSyncStatus = MediaSyncStatus.NotRunning;
+    private int _newSongsAddedCount;
 
+    public event EventHandler<int>? NewSongsAddedCountChanged;
+    
     public MediaSyncStatus GetMediaSyncStatus()
     {
         return _mediaSyncStatus;
@@ -66,6 +71,8 @@ public class MediaLibraryService : IMediaLibraryService
         finally
         {
             _mediaSyncStatus = MediaSyncStatus.NotRunning;
+            _newSongsAddedCount = 0;
+            NewSongsAddedCountChanged?.Invoke(this, _newSongsAddedCount);
         }
     }
 
@@ -77,8 +84,14 @@ public class MediaLibraryService : IMediaLibraryService
 
         var songsToRemove = new ConcurrentBag<int>();
 
-        await Parallel.ForEachAsync(allSongsInDb, 
-            new ParallelOptions { MaxDegreeOfParallelism = Math.Min(Math.Max(1, Environment.ProcessorCount - 1), 8) },
+        const int maxParallelWorkers = 8;
+
+        await Parallel.ForEachAsync(
+            allSongsInDb, 
+            new ParallelOptions
+            {
+                MaxDegreeOfParallelism = Math.Min(Math.Max(1, Environment.ProcessorCount - 1), maxParallelWorkers)
+            },
             (song, _) =>
             {
                 if (!File.Exists(song.FileLocation))
@@ -195,6 +208,9 @@ public class MediaLibraryService : IMediaLibraryService
                         FileSize = fileInfo.Length,
                         LastModified = fileInfo.LastWriteTimeUtc
                     });
+
+                    _newSongsAddedCount++;
+                    NewSongsAddedCountChanged?.Invoke(this, _newSongsAddedCount);
                 }
             }
         }

@@ -19,7 +19,8 @@
         </StackPanel>
         
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
-            <Label>Progress</Label>
+            <Label>New Songs Added:</Label>
+            <TextBlock Text="{Binding NewSongsAddedCount}"></TextBlock>
             
             <ProgressBar Margin="5,0,5,0">
                 
