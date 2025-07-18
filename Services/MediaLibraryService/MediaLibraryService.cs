@@ -35,13 +35,12 @@ public class MediaLibraryService : IMediaLibraryService
         _songRepository = songRepository;
         _userSettingsService = userSettingsService;
         _mediaPlayService = mediaPlayService;
-        
-        NewSongsAddedCountChanged?.Invoke(this, _newSongsAddedCount);
     }
 
     private MediaSyncStatus _mediaSyncStatus = MediaSyncStatus.NotRunning;
     private int _newSongsAddedCount;
 
+    public event EventHandler<MediaSyncStatus>? MediaSyncStatusChanged;
     public event EventHandler<int>? NewSongsAddedCountChanged;
     
     public MediaSyncStatus GetMediaSyncStatus()
@@ -71,6 +70,8 @@ public class MediaLibraryService : IMediaLibraryService
         finally
         {
             _mediaSyncStatus = MediaSyncStatus.NotRunning;
+            MediaSyncStatusChanged?.Invoke(this, _mediaSyncStatus);
+            
             _newSongsAddedCount = 0;
             NewSongsAddedCountChanged?.Invoke(this, _newSongsAddedCount);
         }
@@ -79,6 +80,7 @@ public class MediaLibraryService : IMediaLibraryService
     private async Task CheckExistingMedia()
     {
         _mediaSyncStatus = MediaSyncStatus.CheckingExistingMedia;
+        MediaSyncStatusChanged?.Invoke(this, _mediaSyncStatus);
 
         var allSongsInDb = _songRepository.StreamGetAllSongs();
 
@@ -105,6 +107,7 @@ public class MediaLibraryService : IMediaLibraryService
         if (songsToRemove.Any())
         {
             _mediaSyncStatus = MediaSyncStatus.RemovingMissingMedia;
+            MediaSyncStatusChanged?.Invoke(this, _mediaSyncStatus);
             
             await _songRepository.DeleteSongs(songsToRemove.ToList());
         }
@@ -113,6 +116,7 @@ public class MediaLibraryService : IMediaLibraryService
     private async Task AddNewMedia()
     {
         _mediaSyncStatus = MediaSyncStatus.AddingNewMedia;
+        MediaSyncStatusChanged?.Invoke(this, _mediaSyncStatus);
 
         var songsToAdd = new List<SongEntity>();
         

@@ -9,22 +9,30 @@
              Background="White">
     <Panel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-            <Button MaxHeight="25" Margin="5,0,0,0">
-                B
+            <Button MaxHeight="20" Margin="5,0,0,0" Padding="4,-1, 4, 2">
+                &lt;
             </Button>
             
-            <Button MaxHeight="25" Margin="5,0,0,0">
-                F
+            <Button MaxHeight="20" Margin="5,0,0,0" Padding="4,-1, 4, 2">
+                &gt;
             </Button>
         </StackPanel>
         
-        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
-            <Label>New Songs Added:</Label>
-            <TextBlock Text="{Binding NewSongsAddedCount}"></TextBlock>
+        <StackPanel 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal"
+            Margin="5,0,10,0">
             
-            <ProgressBar Margin="5,0,5,0">
-                
-            </ProgressBar>
+            <TextBlock 
+                Margin="5,3,4,0"
+                Text="{Binding NewSongsAddedCount}"
+                IsVisible="{Binding ShowNewSongsAdded}">
+            </TextBlock>
+            <Label IsVisible="{Binding ShowNewSongsAdded}"> New Songs Added</Label>
+            <TextBlock
+                Margin="5,3,4,0"
+                Text="{Binding SyncStatus}"></TextBlock>
         </StackPanel>
     </Panel>
 </UserControl>

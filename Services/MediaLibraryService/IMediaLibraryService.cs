@@ -6,6 +6,7 @@ namespace CrossMediaPlayer.Services.MediaLibraryService;
 
 public interface IMediaLibraryService
 {
+    public event EventHandler<MediaSyncStatus>? MediaSyncStatusChanged;
     public event EventHandler<int>? NewSongsAddedCountChanged;
     public MediaSyncStatus GetMediaSyncStatus();
     public Task SyncMediaLibrary();

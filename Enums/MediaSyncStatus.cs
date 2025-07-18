@@ -4,6 +4,6 @@ public enum MediaSyncStatus
 {
     NotRunning = 0,
     CheckingExistingMedia = 1,
-    RemovingMissingMedia,
-    AddingNewMedia = 2
+    RemovingMissingMedia = 2,
+    AddingNewMedia = 3
 }
