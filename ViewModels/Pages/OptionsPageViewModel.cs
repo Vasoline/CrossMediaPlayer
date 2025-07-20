@@ -37,6 +37,8 @@ public partial class OptionsPageViewModel : ViewModelBase
         {
             MediaFoldersList.Add(mediaFolder);
         }
+
+        _mediaLibraryService.MediaSyncStatusChanged += OnMediaSyncStatusChanged;
     }
     
     [ObservableProperty]
@@ -56,6 +58,15 @@ public partial class OptionsPageViewModel : ViewModelBase
     
     [ObservableProperty]
     private string? _selectedMediaFolder;
+
+    [ObservableProperty] 
+    private bool _mediaSyncing;
+
+
+    private void OnMediaSyncStatusChanged(object? sender, MediaSyncStatus mediaSyncStatus)
+    {
+        MediaSyncing = mediaSyncStatus != MediaSyncStatus.NotRunning;
+    }
     
     partial void OnSelectedLanguageOptionChanged(LanguageOption value)
     {

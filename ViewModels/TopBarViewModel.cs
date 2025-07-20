@@ -1,29 +1,40 @@
 ﻿using System;
+using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CrossMediaPlayer.Enums;
 using CrossMediaPlayer.Services.MediaLibraryService;
+using CrossMediaPlayer.Services.UserSettingsService;
 
 namespace CrossMediaPlayer.ViewModels;
 
 public partial class TopBarViewModel : ViewModelBase
 {
     private readonly IMediaLibraryService _mediaLibraryService;
+    private readonly IUserSettingsService _userSettingsService;
     
-    public TopBarViewModel(IMediaLibraryService mediaLibraryService)
+    public TopBarViewModel(
+        IMediaLibraryService mediaLibraryService,
+        IUserSettingsService userSettingsService)
     {
         _mediaLibraryService = mediaLibraryService;
+        _userSettingsService = userSettingsService;
 
-        SyncStatus = "Media Folders Last Synced: Never";
+        SetMediaFoldersLastSynced();
+
+        ShowSyncNowButton = true;
         
         _mediaLibraryService.MediaSyncStatusChanged += OnMediaSyncStatusChanged;
         _mediaLibraryService.NewSongsAddedCountChanged += OnNewSongsAddedCountChanged;
     }
     
     [ObservableProperty]
-    private string _syncStatus;
+    private string? _syncStatus;
     
     [ObservableProperty]
     private int _newSongsAddedCount;
+    
+    [ObservableProperty]
+    private bool _showSyncNowButton;
     
     [ObservableProperty]
     private bool _showNewSongsAdded;
@@ -35,6 +46,7 @@ public partial class TopBarViewModel : ViewModelBase
     
     private void OnMediaSyncStatusChanged(object? sender, MediaSyncStatus mediaSyncStatus)
     {
+        ShowSyncNowButton = false;
         ShowNewSongsAdded = false;
         
         switch (mediaSyncStatus)
@@ -42,13 +54,16 @@ public partial class TopBarViewModel : ViewModelBase
             default:
             case MediaSyncStatus.NotRunning:
             {
-                SyncStatus = "Media Folders Last Synced: Never";
+                SetMediaFoldersLastSynced();
+                ShowSyncNowButton = true;
+                
                 break;
             }
 
             case MediaSyncStatus.CheckingExistingMedia:
             {
                 SyncStatus = " - Syncing Media Folders";
+                
                 break;
             }
             
@@ -66,5 +81,15 @@ public partial class TopBarViewModel : ViewModelBase
                 break;
             }
         }
+    }
+
+    private void SetMediaFoldersLastSynced()
+    {
+        var mediaFoldersLastSynced = _userSettingsService.UserSettings.MediaFoldersLastSynced is not null 
+            ? _userSettingsService.UserSettings.MediaFoldersLastSynced.Value
+                .ToString("dd MMM yyyy - HH:mm", CultureInfo.InvariantCulture)
+            : "Never";
+        
+        SyncStatus = $"Media Folders Last Synced: {mediaFoldersLastSynced}";
     }
 }

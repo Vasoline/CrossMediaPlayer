@@ -69,6 +69,8 @@ public class MediaLibraryService : IMediaLibraryService
         }
         finally
         {
+            _userSettingsService.UserSettings.SetMediaFoldersLastSynced();
+            
             _mediaSyncStatus = MediaSyncStatus.NotRunning;
             MediaSyncStatusChanged?.Invoke(this, _mediaSyncStatus);
             

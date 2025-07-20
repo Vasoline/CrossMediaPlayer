@@ -26,6 +26,9 @@ public class UserSettings
     public PlayModeOption PlayMode { get; private set; } = PlayModeOption.Standard;
     
     [JsonInclude]
+    public DateTime? MediaFoldersLastSynced { get; private set; }
+    
+    [JsonInclude]
     public List<string> MediaFolders { get; private set; } = new();
     
     
@@ -60,6 +63,11 @@ public class UserSettings
     public void SavePlayModeOption(PlayModeOption playModeOption)
     {
         PlayMode = playModeOption;
+    }
+    
+    public void SetMediaFoldersLastSynced()
+    {
+        MediaFoldersLastSynced = DateTime.Now;
     }
     
     public void SaveMediaFolders(List<string> mediaFolders)

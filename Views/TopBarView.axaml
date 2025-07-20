@@ -8,7 +8,7 @@
              x:DataType="vm:TopBarViewModel"
              Background="White">
     <Panel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+        <StackPanel IsVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
             <Button MaxHeight="20" Margin="5,0,0,0" Padding="4,-1, 4, 2">
                 &lt;
             </Button>
@@ -29,9 +29,13 @@
                 Text="{Binding NewSongsAddedCount}"
                 IsVisible="{Binding ShowNewSongsAdded}">
             </TextBlock>
+            
+            <Button IsVisible="{Binding ShowSyncNowButton}">Sync Now</Button>
+            
             <Label IsVisible="{Binding ShowNewSongsAdded}"> New Songs Added</Label>
             <TextBlock
                 Margin="5,3,4,0"
+                Foreground="DarkGray"
                 Text="{Binding SyncStatus}"></TextBlock>
         </StackPanel>
     </Panel>
