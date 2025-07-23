@@ -69,6 +69,7 @@
                     Margin="0,0,10,0"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
+                    IsEnabled="{Binding !MediaSyncing}"
                     Content="{Binding TranslationService[Options.MediaFoldersAddButton]}"
                     Command="{Binding MediaFoldersAddButtonClick}"
                     CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
@@ -77,6 +78,7 @@
                     MinWidth="170"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
+                    IsEnabled="{Binding !MediaSyncing}"
                     Content="{Binding TranslationService[Options.MediaFoldersRemoveButton]}"
                     Command="{Binding MediaFoldersRemoveButtonClick}"
                 />

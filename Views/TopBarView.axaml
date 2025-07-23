@@ -7,5 +7,45 @@
              x:Class="CrossMediaPlayer.Views.TopBarView"
              x:DataType="vm:TopBarViewModel"
              Background="White">
-    Top Bar
+    <Panel>
+        <StackPanel IsVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+            <Button MaxHeight="20" Margin="5,0,0,0" Padding="4,-1, 4, 2">
+                &lt;
+            </Button>
+            
+            <Button MaxHeight="20" Margin="5,0,0,0" Padding="4,-1, 4, 2">
+                &gt;
+            </Button>
+        </StackPanel>
+        
+        <StackPanel 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal"
+            Margin="5,0,10,0">
+            
+            <Button 
+                IsVisible="{Binding ShowSyncNowButton}"
+                Command="{Binding SyncNowButtonClick}">
+                Sync Now
+            </Button>
+            
+            <Button IsVisible="{Binding !ShowSyncNowButton}"
+                    Command="{Binding CancelSyncButtonClick}">
+                Cancel Syncing
+            </Button>
+            
+            <TextBlock 
+                Margin="5,3,4,0"
+                Text="{Binding NewSongsAddedCount}"
+                IsVisible="{Binding ShowNewSongsAdded}">
+            </TextBlock>
+            
+            <Label IsVisible="{Binding ShowNewSongsAdded}"> New Songs Added</Label>
+            <TextBlock
+                Margin="5,3,4,0"
+                Foreground="DarkGray"
+                Text="{Binding SyncStatus}"></TextBlock>
+        </StackPanel>
+    </Panel>
 </UserControl>
