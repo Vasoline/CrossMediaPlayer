@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Enumeration;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CrossMediaPlayer.Database.Entities;
 using CrossMediaPlayer.Database.Repositories.Album;
@@ -37,15 +38,24 @@ public class MediaLibraryService : IMediaLibraryService
         _mediaPlayService = mediaPlayService;
     }
 
-    private MediaSyncStatus _mediaSyncStatus = MediaSyncStatus.NotRunning;
-    private int _newSongsAddedCount;
-
     public event EventHandler<MediaSyncStatus>? MediaSyncStatusChanged;
     public event EventHandler<int>? NewSongsAddedCountChanged;
+    
+    private CancellationTokenSource _mediaSyncCancellationToken;
+    private MediaSyncStatus _mediaSyncStatus = MediaSyncStatus.NotRunning;
+    private int _newSongsAddedCount;
     
     public MediaSyncStatus GetMediaSyncStatus()
     {
         return _mediaSyncStatus;
+    }
+
+    public async Task CancelMediaSyncing()
+    {
+        if (_mediaSyncStatus != MediaSyncStatus.NotRunning)
+        {
+            await _mediaSyncCancellationToken.CancelAsync();
+        }
     }
     
     public async Task SyncMediaLibrary()
@@ -56,11 +66,19 @@ public class MediaLibraryService : IMediaLibraryService
             
             return;
         }
+        
+        _mediaSyncCancellationToken = new CancellationTokenSource();
 
         try
         {
             await CheckExistingMedia();
             await AddNewMedia();
+            
+            _userSettingsService.UserSettings.SetMediaFoldersLastSynced();
+        }
+        catch (OperationCanceledException)
+        {
+            // handle cancelled if needed
         }
         catch (Exception exception)
         {
@@ -69,13 +87,13 @@ public class MediaLibraryService : IMediaLibraryService
         }
         finally
         {
-            _userSettingsService.UserSettings.SetMediaFoldersLastSynced();
+            _mediaSyncCancellationToken.Dispose();
             
             _mediaSyncStatus = MediaSyncStatus.NotRunning;
-            MediaSyncStatusChanged?.Invoke(this, _mediaSyncStatus);
             
             _newSongsAddedCount = 0;
             NewSongsAddedCountChanged?.Invoke(this, _newSongsAddedCount);
+            MediaSyncStatusChanged?.Invoke(this, _mediaSyncStatus);
         }
     }
 
@@ -89,23 +107,24 @@ public class MediaLibraryService : IMediaLibraryService
         var songsToRemove = new ConcurrentBag<int>();
 
         const int maxParallelWorkers = 8;
-
+        
         await Parallel.ForEachAsync(
-            allSongsInDb, 
-            new ParallelOptions
+        allSongsInDb, 
+        new ParallelOptions
+        {
+            MaxDegreeOfParallelism = Math.Min(Math.Max(1, Environment.ProcessorCount - 1), maxParallelWorkers),
+            CancellationToken = _mediaSyncCancellationToken.Token
+        },
+        (song, _) =>
+        {
+            if (!File.Exists(song.FileLocation))
             {
-                MaxDegreeOfParallelism = Math.Min(Math.Max(1, Environment.ProcessorCount - 1), maxParallelWorkers)
-            },
-            (song, _) =>
-            {
-                if (!File.Exists(song.FileLocation))
-                {
-                    songsToRemove.Add(song.Id);
-                }
+                songsToRemove.Add(song.Id);
+            }
 
-                return ValueTask.CompletedTask;
-            });
-
+            return ValueTask.CompletedTask;
+        });
+            
         if (songsToRemove.Any())
         {
             _mediaSyncStatus = MediaSyncStatus.RemovingMissingMedia;
@@ -143,6 +162,8 @@ public class MediaLibraryService : IMediaLibraryService
 
         foreach (var folder in mediaFolders)
         {
+            _mediaSyncCancellationToken.Token.ThrowIfCancellationRequested();
+            
             var foundFileLocationsInFolder = new FileSystemEnumerable<string>(
                 folder,
                 (ref FileSystemEntry entry) => entry.ToFullPath(),
@@ -153,6 +174,8 @@ public class MediaLibraryService : IMediaLibraryService
             
             foreach(var fileLocation in foundFileLocationsInFolder)
             {
+                _mediaSyncCancellationToken.Token.ThrowIfCancellationRequested();
+                
                 var isAudioFile = await _mediaPlayService.IsAudioFile(fileLocation);
 
                 if (!isAudioFile)

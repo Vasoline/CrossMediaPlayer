@@ -131,8 +131,6 @@ public partial class OptionsPageViewModel : ViewModelBase
                     _userSettingsService.UserSettings.SaveMediaFolders(MediaFoldersList.ToList());
                 }
             }
-            
-            await _mediaLibraryService.SyncMediaLibrary();
         }
     }
     

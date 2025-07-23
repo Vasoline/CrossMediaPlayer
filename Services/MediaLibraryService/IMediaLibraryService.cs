@@ -9,5 +9,6 @@ public interface IMediaLibraryService
     public event EventHandler<MediaSyncStatus>? MediaSyncStatusChanged;
     public event EventHandler<int>? NewSongsAddedCountChanged;
     public MediaSyncStatus GetMediaSyncStatus();
+    public Task CancelMediaSyncing();
     public Task SyncMediaLibrary();
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CrossMediaPlayer.Enums;
 using CrossMediaPlayer.Services.MediaLibraryService;
 using CrossMediaPlayer.Services.UserSettingsService;
@@ -38,6 +40,19 @@ public partial class TopBarViewModel : ViewModelBase
     
     [ObservableProperty]
     private bool _showNewSongsAdded;
+
+
+    [RelayCommand]
+    public async Task SyncNowButtonClick()
+    {
+        await _mediaLibraryService.SyncMediaLibrary();
+    }
+    
+    [RelayCommand]
+    public async Task CancelSyncButtonClick()
+    {
+        await _mediaLibraryService.CancelMediaSyncing();
+    }
     
     private void OnNewSongsAddedCountChanged(object? sender, int newSongsAddedCount)
     {
