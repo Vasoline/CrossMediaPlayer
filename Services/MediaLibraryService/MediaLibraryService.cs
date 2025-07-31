@@ -36,14 +36,24 @@ public class MediaLibraryService : IMediaLibraryService
         _songRepository = songRepository;
         _userSettingsService = userSettingsService;
         _mediaPlayService = mediaPlayService;
+
+        _ = PopulateLibraryFromDatabase();
     }
 
     public event EventHandler<MediaSyncStatus>? MediaSyncStatusChanged;
     public event EventHandler<int>? NewSongsAddedCountChanged;
     
+    public event EventHandler? ArtistsUpdated;
+    public event EventHandler? AlbumsUpdated;
+    public event EventHandler? SongsUpdated;
+    
     private CancellationTokenSource _mediaSyncCancellationToken;
     private MediaSyncStatus _mediaSyncStatus = MediaSyncStatus.NotRunning;
     private int _newSongsAddedCount;
+
+    public List<ArtistEntity> ArtistsInLibrary { get; private set; } = new();
+    public List<AlbumEntity> AlbumsInLibrary { get; private set; } = new();
+    public List<SongEntity> SongsInLibrary { get; private set; } = new();
     
     public MediaSyncStatus GetMediaSyncStatus()
     {
@@ -247,6 +257,23 @@ public class MediaLibraryService : IMediaLibraryService
         if (songsToAdd.Any())
         {
             await _songRepository.AddNewSongs(songsToAdd);
+            
+            await PopulateLibraryFromDatabase();
         }
+    }
+
+    private async Task PopulateLibraryFromDatabase()
+    {
+        ArtistsInLibrary = await _artistRepository.GetAllArtists();
+        AlbumsInLibrary = await _albumRepository.GetAllAlbums();
+        SongsInLibrary = await _songRepository.GetAllSongs();
+
+        ArtistsInLibrary = ArtistsInLibrary.OrderBy(x => x.Name).ToList();
+        AlbumsInLibrary = AlbumsInLibrary.OrderBy(x => x.Name).ToList();
+        SongsInLibrary = SongsInLibrary.OrderBy(x => x.Title).ToList();
+
+        ArtistsUpdated?.Invoke(this, EventArgs.Empty);
+        AlbumsUpdated?.Invoke(this, EventArgs.Empty);
+        SongsUpdated?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -15,7 +15,7 @@ public class SongRepository : ISongRepository
         _dbContext = dbContext;
     }
     
-    public async Task<List<SongEntity>> GetAllSongsForListView()
+    public async Task<List<SongEntity>> GetAllSongs()
     {
         return await _dbContext.Songs
             .AsNoTracking()
